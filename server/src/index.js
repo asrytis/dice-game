@@ -1,20 +1,35 @@
 'use strict';
 
+const config = require('./config');
 const WebSocketServer = require('ws').Server;
+const Player = require('./player');
+const GameServer = require('./game-server');
+
+
+const gameServer = new GameServer();
+
 const wss = new WebSocketServer({
-	port: 3000
+	port: config.wsPort,
+	path: config.wsPath
 });
 
 wss.on('connection', function(ws) {
 
-	console.log('new connection', ws.upgradeReq.url);
+	const player = new Player({
+		ws,
+		name: Player.extractName(ws.upgradeReq.url, config.playerNameMaxLength)
+	});
+
+	gameServer.addPlayer(player);
 
 	ws.on('message', function(message) {
-		console.log('message:', message);
+		gameServer.processMessage(player, message);
 	});
 
 	ws.once('close', function() {
-		console.log('Connection closed');
+		gameServer.removePlayer(player);
 	});
 
 });
+
+console.log('Websocket server listening on %s:%s', config.wsPath, config.wsPort);

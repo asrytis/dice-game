@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- *  Responsible for keeping track of the players and managing incoming and outgoing messages
+ * Responsible for keeping track of the players and managing incoming and outgoing messages
  */
 module.exports = class {
 

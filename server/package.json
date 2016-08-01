@@ -1,0 +1,27 @@
+{
+  "name": "dice-game-server",
+  "version": "1.0.0",
+  "description": "Backend for the dice game",
+  "main": "index.js",
+  "private": true,
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha 'test/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asrytis/dice-game/tree/master/server"
+  },
+  "author": "Rytis Ziobakas <asrytis@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
+    "mocha": "^3.0.0"
+  },
+  "dependencies": {
+    "ws": "^1.1.1"
+  }
+}

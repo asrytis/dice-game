@@ -1,37 +1,53 @@
 'use strict';
 
 /**
- * The class is responsible for allocating players to rooms
+ * The class maintains a list of game rooms and is responsible for allocating game rooms to players
  */
 module.exports = class {
 
-    constructor() {
-        this._players = [];
+    /**
+     * @param {GameRoom} roomClass
+     */
+    constructor({ roomClass, playersPerRoom }) {
+        this._roomClass = roomClass;
+        this._rooms = [];
+        this._playersPerRoom = playersPerRoom;
     }
 
     /**
-     * @param {Player} player
+     * Finds an existing room or creates a brand new one
+     * @return {GameRoom}
      */
-    addPlayer(player) {
-        this._players.push(player);
-    }
-
-    /**
-     * @param {Player} player
-     */
-    removePlayer(player) {
-        const index = this._players.indexOf(player);
-        if (index !== -1) {
-            this._players.splice(index, 1);
+    findAvailableRoom() {
+        for (let room of this._rooms) {
+            if (room.playerCount < this._playersPerRoom) {
+                return room;
+            }
         }
+
+        const room = new this._roomClass();
+        this._rooms.push(room);
+
+        return room;
     }
 
     /**
-     * @param {Player} player
-     * @param {String} message
+     * Removes the room if there are no players registered
+     * @param {GameRoom} room
      */
-    processMessage(player, message) {
+    removeRoomIfEmpty(room) {
+        if (room.playerCount > 0) return;
 
+        const index = this._rooms.indexOf(room);
+        return index >= 0 && this._rooms.splice(index, 1);
+    }
+
+    /**
+     * Active game rooms
+     * @return {Number}
+     */
+    get roomCount() {
+        return this._rooms.length;
     }
 
     /**
@@ -39,7 +55,10 @@ module.exports = class {
      * @return {Number}
      */
     get playerCount() {
-        return this._players.length;
+        return this._rooms.reduce(
+            (count, room) => count + room.playerCount,
+            0
+        );
     }
 
 };

@@ -3,5 +3,6 @@
 module.exports = {
     wsPath: '/ws',
     wsPort: 3000,
-    playerNameMaxLength: 15
+    playerNameMaxLength: 15,
+    playersPerRoom: 6
 };

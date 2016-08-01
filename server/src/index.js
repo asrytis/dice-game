@@ -9,26 +9,26 @@ const GameServer = require('./game-server');
 const gameServer = new GameServer();
 
 const wss = new WebSocketServer({
-	port: config.wsPort,
-	path: config.wsPath
+    port: config.wsPort,
+    path: config.wsPath
 });
 
 wss.on('connection', function(ws) {
 
-	const player = new Player({
-		ws,
-		name: Player.extractName(ws.upgradeReq.url, config.playerNameMaxLength)
-	});
+    const player = new Player({
+        ws,
+        name: Player.extractName(ws.upgradeReq.url, config.playerNameMaxLength)
+    });
 
-	gameServer.addPlayer(player);
+    gameServer.addPlayer(player);
 
-	ws.on('message', function(message) {
-		gameServer.processMessage(player, message);
-	});
+    ws.on('message', function(message) {
+        gameServer.processMessage(player, message);
+    });
 
-	ws.once('close', function() {
-		gameServer.removePlayer(player);
-	});
+    ws.once('close', function() {
+        gameServer.removePlayer(player);
+    });
 
 });
 

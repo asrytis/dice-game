@@ -17,4 +17,4 @@ Developing a dice game was actually a programming task for a tech startup. The f
 - Backend: Python or Node
 - Frontend: preferred: React.js + Redux, but you can use AngularJS too
  
-Instead of hacking something together in a few hours I decided to go that extra mile and do a proper graphical design + go with React Native instead of a Web App.
+Instead of hacking something together in a few hours I decided to go that extra mile and do a proper graphical design + go with React Native instead of building a Web App.

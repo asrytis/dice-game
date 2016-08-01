@@ -4,7 +4,7 @@
 
 Hey there! This is my first public repo and a playground for React Native. I didn't want to litter the net with yet another Todo List app and decided to go with a simple game instead.
 
-Developing a dice game was actually a programming task for a tech startup. The following are the original requirements:
+Developing a dice game was actually a programming task for a tech startup. The following were the original requirements:
 
 - First user in the system selects the number of dice to roll (1-4)
 - The game can begin when there are at least 2 users online

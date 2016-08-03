@@ -13,7 +13,7 @@ chai.use(spies);
 describe('GameRoom', function() {
 
     it('addPlayer(player) should register player with the room', function() {
-        const gameRoom = new GameRoom();
+        const gameRoom = new GameRoom({ maxPlayers: 6 });
 
         expect(gameRoom.playerCount).to.equal(0);
 
@@ -31,7 +31,7 @@ describe('GameRoom', function() {
     });
 
     it('removePlayer(player) should remove player from the list', function() {
-        const gameRoom = new GameRoom();
+        const gameRoom = new GameRoom({ maxPlayers: 6 });
         const player1 = new Player({ ws: {}, name: 'Player 1' });
         const player2 = new Player({ ws: {}, name: 'Player 2' });
 
@@ -53,7 +53,7 @@ describe('GameRoom', function() {
     });
 
     it('broadcast(message) should send message to all players in the room', function() {
-        const gameRoom = new GameRoom();
+        const gameRoom = new GameRoom({ maxPlayers: 6 });
         const player1 = new Player({ ws: { send: function(){} }, name: 'Player 1' });
         const player2 = new Player({ ws: { send: function(){} }, name: 'Player 2' });
 
@@ -75,7 +75,7 @@ describe('GameRoom', function() {
     });
 
     it('parseMessage(message) should convert string to object', function() {
-        const gameRoom = new GameRoom();
+        const gameRoom = new GameRoom({ maxPlayers: 6 });
 
         expect(gameRoom.parseMessage('{ "prop": 1 }')).to.eql({ prop: 1 });
         expect(gameRoom.parseMessage('{ invalidJSON }')).to.equal(null);

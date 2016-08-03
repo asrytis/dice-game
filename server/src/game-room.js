@@ -17,7 +17,11 @@ const InProgressState = require('./game-states/in-progress');
  */
 module.exports = class {
 
-    constructor() {
+    /**
+     * @param {Number} maxPlayers
+     */
+    constructor({ maxPlayers }) {
+        this.maxPlayers = maxPlayers;
         this.players = [];
         this.states = {
             [GAME_STATE_SETUP]: new SetupState(this),
@@ -68,6 +72,14 @@ module.exports = class {
             this.players.splice(index, 1);
             this.state.playerRemoved(player);
         }
+    }
+
+    /**
+     * Checks if a new player can be added to the room
+     * @return {Boolean}
+     */
+    hasAvailableSlots() {
+        return this.playerCount < this.maxPlayers;
     }
 
     /**

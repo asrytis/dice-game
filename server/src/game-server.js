@@ -6,12 +6,11 @@
 module.exports = class {
 
     /**
-     * @param {GameRoom} roomClass
+     * @param {Function} roomFactory
      */
-    constructor({ roomClass, playersPerRoom }) {
-        this.roomClass = roomClass;
+    constructor({ roomFactory }) {
+        this.roomFactory = roomFactory;
         this.rooms = [];
-        this.playersPerRoom = playersPerRoom;
     }
 
     /**
@@ -20,12 +19,12 @@ module.exports = class {
      */
     findAvailableRoom() {
         for (let room of this.rooms) {
-            if (room.playerCount < this.playersPerRoom) {
+            if (room.hasAvailableSlots()) {
                 return room;
             }
         }
 
-        const room = new this.roomClass();
+        const room = this.roomFactory();
         this.rooms.push(room);
 
         return room;

@@ -3,27 +3,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 const GameServer = require('../src/game-server');
-
-const GameRoomMock = class {
-    constructor() {
-        this.players = [];
-    }
-
-    addPlayer(player) {
-        this.players.push(player);
-    }
-
-    removePlayer(player) {
-        const index = this.players.indexOf(player);
-        if (index >= 0) {
-            this.players.splice(index, 1);
-        }
-    }
-
-    get playerCount() {
-        return this.players.length;
-    }
-};
+const GameRoom = require('../src/game-room');
 
 
 describe('game-server', function() {
@@ -31,7 +11,7 @@ describe('game-server', function() {
     describe('findAvailableRoom()', function() {
 
         it('should create a room when no rooms exist', function() {
-            const gameServer = new GameServer({ roomClass: GameRoomMock, playersPerRoom: 3 });
+            const gameServer = new GameServer({ roomFactory: () => new GameRoom({ maxPlayers: 3 }) });
             expect(gameServer.roomCount).to.equal(0);
             
             const room = gameServer.findAvailableRoom();
@@ -39,7 +19,7 @@ describe('game-server', function() {
         });
 
         it('should reuse an existing room', function() {
-            const gameServer = new GameServer({ roomClass: GameRoomMock, playersPerRoom: 3 });
+            const gameServer = new GameServer({ roomFactory: () => new GameRoom({ maxPlayers: 3 }) });
 
             const room = gameServer.findAvailableRoom();
             const anotherRoom = gameServer.findAvailableRoom();
@@ -49,7 +29,7 @@ describe('game-server', function() {
         });
 
         it('should create a new room when others are full', function() {
-            const gameServer = new GameServer({ roomClass: GameRoomMock, playersPerRoom: 2 });
+            const gameServer = new GameServer({ roomFactory: () => new GameRoom({ maxPlayers: 2 }) });
             
             gameServer.findAvailableRoom().addPlayer({});
             gameServer.findAvailableRoom().addPlayer({});
@@ -62,7 +42,7 @@ describe('game-server', function() {
     });
 
     it('removeRoomIfEmpty() should remove a room that has no players registered', function() {
-        const gameServer = new GameServer({ roomClass: GameRoomMock, playersPerRoom: 3 });
+        const gameServer = new GameServer({ roomFactory: () => new GameRoom({ maxPlayers: 3 }) });
 
         const player = { };
         const room = gameServer.findAvailableRoom();

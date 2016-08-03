@@ -8,8 +8,9 @@ const GameServer = require('./game-server');
 
 
 const gameServer = new GameServer({
-    roomClass: GameRoom,
-    playersPerRoom: config.playersPerRoom
+    roomFactory: () => new GameRoom({
+        maxPlayers: config.playersPerRoom
+    })
 });
 
 const wss = new WebSocketServer({

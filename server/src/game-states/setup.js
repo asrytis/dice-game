@@ -39,7 +39,7 @@ module.exports = class {
      */
     processMessage(message, sender) {
         // Make sure it's coming from the host
-        if (sender !== this.gameRoom._players[0]) {
+        if (sender !== this.gameRoom.players[0]) {
             return;
         }
 

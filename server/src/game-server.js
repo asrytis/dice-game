@@ -9,9 +9,9 @@ module.exports = class {
      * @param {GameRoom} roomClass
      */
     constructor({ roomClass, playersPerRoom }) {
-        this._roomClass = roomClass;
-        this._rooms = [];
-        this._playersPerRoom = playersPerRoom;
+        this.roomClass = roomClass;
+        this.rooms = [];
+        this.playersPerRoom = playersPerRoom;
     }
 
     /**
@@ -19,14 +19,14 @@ module.exports = class {
      * @return {GameRoom}
      */
     findAvailableRoom() {
-        for (let room of this._rooms) {
-            if (room.playerCount < this._playersPerRoom) {
+        for (let room of this.rooms) {
+            if (room.playerCount < this.playersPerRoom) {
                 return room;
             }
         }
 
-        const room = new this._roomClass();
-        this._rooms.push(room);
+        const room = new this.roomClass();
+        this.rooms.push(room);
 
         return room;
     }
@@ -38,8 +38,8 @@ module.exports = class {
     removeRoomIfEmpty(room) {
         if (room.playerCount > 0) return;
 
-        const index = this._rooms.indexOf(room);
-        return index >= 0 && this._rooms.splice(index, 1);
+        const index = this.rooms.indexOf(room);
+        return index >= 0 && this.rooms.splice(index, 1);
     }
 
     /**
@@ -47,7 +47,7 @@ module.exports = class {
      * @return {Number}
      */
     get roomCount() {
-        return this._rooms.length;
+        return this.rooms.length;
     }
 
     /**
@@ -55,7 +55,7 @@ module.exports = class {
      * @return {Number}
      */
     get playerCount() {
-        return this._rooms.reduce(
+        return this.rooms.reduce(
             (count, room) => count + room.playerCount,
             0
         );

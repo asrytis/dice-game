@@ -16,7 +16,7 @@ describe('SetupState', function() {
     it('should proceed to the WAITING state after user has picked number of dice to play with', function() {
         const player1 = new Player({ ws: {}, name: 'Player 1' });
         const gameRoomMock = {
-            _players: [player1],
+            players: [player1],
             gameData: {},
             setState: function(){ }
         };

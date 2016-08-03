@@ -6,22 +6,22 @@ const GameServer = require('../src/game-server');
 
 const GameRoomMock = class {
     constructor() {
-        this._players = [];
+        this.players = [];
     }
 
     addPlayer(player) {
-        this._players.push(player);
+        this.players.push(player);
     }
 
     removePlayer(player) {
-        const index = this._players.indexOf(player);
+        const index = this.players.indexOf(player);
         if (index >= 0) {
-            this._players.splice(index, 1);
+            this.players.splice(index, 1);
         }
     }
 
     get playerCount() {
-        return this._players.length;
+        return this.players.length;
     }
 };
 

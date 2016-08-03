@@ -18,8 +18,8 @@ const InProgressState = require('./game-states/in-progress');
 module.exports = class {
 
     constructor() {
-        this._players = [];
-        this._states = {
+        this.players = [];
+        this.states = {
             [GAME_STATE_SETUP]: new SetupState(this),
             [GAME_STATE_WAITING]: new WaitingState(this),
             [GAME_STATE_READY]: new ReadyState(this),
@@ -42,7 +42,7 @@ module.exports = class {
             return;
         }
         
-        const state = this._states[newState];
+        const state = this.states[newState];
         if (state) {
             this.state = state;
             this.state.enterState();
@@ -54,7 +54,7 @@ module.exports = class {
      */
     addPlayer(player) {
         player.room = this;
-        this._players.push(player);
+        this.players.push(player);
         this.state.playerAdded(player);
     }
 
@@ -62,10 +62,10 @@ module.exports = class {
      * @param {Player} player
      */
     removePlayer(player) {
-        const index = this._players.indexOf(player);
+        const index = this.players.indexOf(player);
         if (index >= 0) {
             player.room = null;
-            this._players.splice(index, 1);
+            this.players.splice(index, 1);
             this.state.playerRemoved(player);
         }
     }
@@ -100,7 +100,7 @@ module.exports = class {
      * @param {Object} message
      */
     broadcast(message) {
-        this._players.forEach(
+        this.players.forEach(
             (player) => player.ws.send(message)
         );
     }
@@ -109,7 +109,7 @@ module.exports = class {
      * @return {Number}
      */
     get playerCount() {
-        return this._players.length;
+        return this.players.length;
     }
 
 };

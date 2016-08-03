@@ -7,7 +7,14 @@ const Player = require('../src/player');
 
 describe('Player', function() {
 
-    describe('extractName()', function() {
+    it('should be instantiated with unique ID', function() {
+        const players = Array(100).fill(1).map(() => new Player({ws: {}, name: 'Player'}));
+        const playerIDs = players.map((player) => player.id);
+        const containsDuplicates = playerIDs.some((id, index) => playerIDs.indexOf(id) !== index);
+        expect(containsDuplicates).to.equal(false);
+    });
+
+    describe('extractName(url)', function() {
 
         it('should extract the player name from WebSocket URL', function() {
             const name = Player.extractName('/somPath?John');

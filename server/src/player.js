@@ -1,5 +1,7 @@
 'use strict';
 
+let PLAYER_ID = 0;
+
 module.exports = class Player {
 
     /**
@@ -7,6 +9,7 @@ module.exports = class Player {
      * @param {String} name
      */
     constructor({ ws, name }) {
+        this.id = ++PLAYER_ID;
         this.ws = ws;
         this.name = name;
         this.room = null;

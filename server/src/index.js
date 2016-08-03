@@ -30,9 +30,10 @@ wss.on('connection', function(ws) {
         player.room.processMessage(message, player);
     });
 
-    ws.once('close', function() {
-        player.room.removePlayer(player);
-        gameServer.removeRoomIfEmpty(player.room);
+    ws.on('close', function() {
+        const room = player.room;
+        room.removePlayer(player);
+        gameServer.removeRoomIfEmpty(room);
     });
 
 });

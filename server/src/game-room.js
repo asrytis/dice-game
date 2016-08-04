@@ -35,31 +35,35 @@ module.exports = class {
             score: { }
         };
         this.state = null;
+        this.stateName = '';
         this.setState(GAME_STATE_SETUP);
     }
 
     /**
-     * @param {String} newState
+     * @param {String} stateName
      */
-    setState(newState) {
+    setState(stateName) {
+        const newState = this.states[stateName];
         if (this.state === newState) {
             return;
         }
         
-        const state = this.states[newState];
-        if (state) {
-            this.state = state;
+        if (newState) {
+            this.stateName = stateName;
+            this.state = newState;
             this.state.enterState();
         }
     }
 
     /**
+     * @throws {Error} Will throw an error on attempts to add a new player when the room is full
      * @param {Player} player
      */
     addPlayer(player) {
         if (!this.hasAvailableSlots) {
             throw new Error('The room is full');
         }
+
         player.room = this;
         this.players.push(player);
         this.state.playerAdded(player);

@@ -37,7 +37,9 @@ describe('GameRoom', function() {
 
             gameRoom.addPlayer(new Player({ ws: {}, name: 'Player 1' }));
             gameRoom.addPlayer(new Player({ ws: {}, name: 'Player 2' }));
-            expect(gameRoom.addPlayer.bind(gameRoom, new Player({ ws: {}, name: 'Player 3' }))).to.throw('The room is full');
+
+            const attemptToAddOneMore = () => gameRoom.addPlayer(new Player({ ws: {}, name: 'Player 3' }));
+            expect(attemptToAddOneMore).to.throw(Error);
         });
 
     });

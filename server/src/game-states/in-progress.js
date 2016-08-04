@@ -34,7 +34,10 @@ module.exports = class {
      * @param {Player} player
      */
     playerLeft(player) {
-        delete gameData.score[player.id];
+        const newGameData = Object.assign({}, this.gameRoom.gameData);
+        delete newGameData.score[player.id];
+        
+        this.gameRoom.setGameData(newGameData);
 
         if (this.gameRoom.playerCount < 2) {
             clearTimeout(this.timerID);
@@ -60,7 +63,7 @@ module.exports = class {
                 this.gameRoom.setGameData(newGameData);
 
                 // End the round if everyone's rolled the dice
-                if (Object.keys(gameData.score).length === this.gameRoom.playerCount) {
+                if (Object.keys(newGameData.score).length === this.gameRoom.playerCount) {
                     clearTimeout(this.timerID);
                     this.roundFinished();
                 }

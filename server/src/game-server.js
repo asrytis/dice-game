@@ -19,7 +19,7 @@ module.exports = class {
      */
     findAvailableRoom() {
         for (let room of this.rooms) {
-            if (room.hasAvailableSlots()) {
+            if (room.hasAvailableSlots) {
                 return room;
             }
         }

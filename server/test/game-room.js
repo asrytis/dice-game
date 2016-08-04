@@ -12,22 +12,34 @@ chai.use(spies);
 
 describe('GameRoom', function() {
 
-    it('addPlayer(player) should register player with the room', function() {
-        const gameRoom = new GameRoom({ maxPlayers: 6 });
+    describe('addPlayer(player)', function() {
 
-        expect(gameRoom.playerCount).to.equal(0);
+        it('should register player with the room', function() {
+            const gameRoom = new GameRoom({ maxPlayers: 6 });
 
-        const player1 = new Player({ ws: {}, name: 'Player 1' });
-        const player2 = new Player({ ws: {}, name: 'Player 2' });
+            expect(gameRoom.playerCount).to.equal(0);
 
-        gameRoom.addPlayer(player1);
-        expect(gameRoom.playerCount).to.equal(1);
+            const player1 = new Player({ ws: {}, name: 'Player 1' });
+            const player2 = new Player({ ws: {}, name: 'Player 2' });
 
-        gameRoom.addPlayer(player2);
-        expect(gameRoom.playerCount).to.equal(2);
+            gameRoom.addPlayer(player1);
+            expect(gameRoom.playerCount).to.equal(1);
 
-        expect(player1.room === gameRoom).to.equal(true);
-        expect(player2.room === gameRoom).to.equal(true);
+            gameRoom.addPlayer(player2);
+            expect(gameRoom.playerCount).to.equal(2);
+
+            expect(player1.room === gameRoom).to.equal(true);
+            expect(player2.room === gameRoom).to.equal(true);
+        });
+
+        it('should throw an error when trying to add more players than the room supports', function() {
+            const gameRoom = new GameRoom({ maxPlayers: 2 });
+
+            gameRoom.addPlayer(new Player({ ws: {}, name: 'Player 1' }));
+            gameRoom.addPlayer(new Player({ ws: {}, name: 'Player 2' }));
+            expect(gameRoom.addPlayer.bind(gameRoom, new Player({ ws: {}, name: 'Player 3' }))).to.throw('The room is full');
+        });
+
     });
 
     it('removePlayer(player) should remove player from the list', function() {

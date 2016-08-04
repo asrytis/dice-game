@@ -57,6 +57,9 @@ module.exports = class {
      * @param {Player} player
      */
     addPlayer(player) {
+        if (!this.hasAvailableSlots) {
+            throw new Error('The room is full');
+        }
         player.room = this;
         this.players.push(player);
         this.state.playerAdded(player);
@@ -78,7 +81,7 @@ module.exports = class {
      * Checks if a new player can be added to the room
      * @return {Boolean}
      */
-    hasAvailableSlots() {
+    get hasAvailableSlots() {
         return this.playerCount < this.maxPlayers;
     }
 

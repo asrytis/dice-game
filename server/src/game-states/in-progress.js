@@ -9,7 +9,7 @@ const { randomInRange } = require('../util');
 module.exports = class {
 
     /**
-     * @param {gameRoom}
+     * @param {GameRoom} gameRoom
      */
     constructor(gameRoom) {
         this.gameRoom = gameRoom;

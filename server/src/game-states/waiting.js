@@ -26,7 +26,7 @@ module.exports = class {
      * Invoked by the game room
      * @param {Player} player
      */
-    playerAdded(player) {
+    playerJoined(player) {
         this.checkPlayerCount();
     }
 
@@ -34,7 +34,7 @@ module.exports = class {
      * Invoked by the game room
      * @param {Player} player
      */
-    playerRemoved(player) { }
+    playerLeft(player) { }
 
     /**
      * Invoked by the game room

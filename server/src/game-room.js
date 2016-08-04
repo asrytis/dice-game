@@ -6,11 +6,12 @@ const {
     GAME_STATE_READY,
     GAME_STATE_IN_PROGRESS
 } = require('./constants');
-
+const actions = require('./actions');
 const SetupState = require('./game-states/setup');
 const WaitingState = require('./game-states/waiting');
 const ReadyState = require('./game-states/ready');
 const InProgressState = require('./game-states/in-progress');
+
 
 /**
  * Responsible for keeping track of the players and relaying incoming messages to active game state
@@ -51,8 +52,18 @@ module.exports = class {
         if (newState) {
             this.stateName = stateName;
             this.state = newState;
+
+            actions.gameStateChanged(this, stateName);
             this.state.enterState();
         }
+    }
+
+    /**
+     * @param {Object} gameData
+     */
+    setGameData(gameData) {
+        this.gameData = gameData;
+        actions.gameDataChanged(this, gameData);
     }
 
     /**
@@ -66,7 +77,9 @@ module.exports = class {
 
         player.room = this;
         this.players.push(player);
-        this.state.playerAdded(player);
+        
+        actions.playerJoined(this, player);
+        this.state.playerJoined(player);
     }
 
     /**
@@ -77,16 +90,9 @@ module.exports = class {
         if (index >= 0) {
             player.room = null;
             this.players.splice(index, 1);
-            this.state.playerRemoved(player);
+            actions.playerLeft(this, player);
+            this.state.playerLeft(player);
         }
-    }
-
-    /**
-     * Checks if a new player can be added to the room
-     * @return {Boolean}
-     */
-    get hasAvailableSlots() {
-        return this.playerCount < this.maxPlayers;
     }
 
     /**
@@ -117,11 +123,35 @@ module.exports = class {
     /**
      * Send message to all players in the room
      * @param {Object} message
+     * @param {Player} [exclude] - this player will be skipped
      */
-    broadcast(message) {
+    broadcast(message, exclude) {
+        const json = JSON.stringify(message);
         this.players.forEach(
-            (player) => player.ws.send(message)
+            (player) => player !== exclude && player.ws.send(json)
         );
+    }
+
+    /**
+     * Serialize the full game state
+     * @return {Object}
+     */
+    serialize() {
+        return {
+            stateName: this.stateName,
+            gameData: this.gameData,
+            players: this.players.map(
+                (player) => player.serialize()
+            )
+        };
+    }
+
+    /**
+     * Checks if a new player can be added to the room
+     * @return {Boolean}
+     */
+    get hasAvailableSlots() {
+        return this.playerCount < this.maxPlayers;
     }
 
     /**

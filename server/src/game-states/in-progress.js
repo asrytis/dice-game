@@ -27,13 +27,13 @@ module.exports = class {
      * Invoked by the game room
      * @param {Player} player
      */
-    playerAdded(player) { }
+    playerJoined(player) { }
 
     /**
      * Invoked by the game room
      * @param {Player} player
      */
-    playerRemoved(player) {
+    playerLeft(player) {
         delete gameData.score[player.id];
 
         if (this.gameRoom.playerCount < 2) {
@@ -54,7 +54,10 @@ module.exports = class {
 
             // Make sure the user cannot roll twice
             if (!gameData.score[sender.id]) {
-                gameData.score[sender.id] = Array(gameData.numberOfDice).fill(1).map(() => randomInRange(1, 6));
+                const newGameData = Object.assign({}, gameData);
+                newGameData.score[sender.id] = Array(gameData.numberOfDice).fill(1).map(() => randomInRange(1, 6));
+
+                this.gameRoom.setGameData(newGameData);
 
                 // End the round if everyone's rolled the dice
                 if (Object.keys(gameData.score).length === this.gameRoom.playerCount) {

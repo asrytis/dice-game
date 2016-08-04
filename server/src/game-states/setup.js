@@ -24,13 +24,13 @@ module.exports = class {
      * Invoked by the game room
      * @param {Player} player
      */
-    playerAdded(player) { }
+    playerJoined(player) { }
 
     /**
      * Invoked by the game room
      * @param {Player} player
      */
-    playerRemoved(player) { }
+    playerLeft(player) { }
 
     /**
      * Invoked by the game room
@@ -44,10 +44,10 @@ module.exports = class {
         }
 
         if (message.type === CMD_SET_DICE) {
-            const numberOfDice = parseInt(message.data, 10);
+            const numberOfDice = parseInt(message.payload, 10);
             
             if (inRange(numberOfDice, 1, 4)) {
-                this.gameRoom.gameData.numberOfDice = numberOfDice;
+                this.gameRoom.setGameData({ numberOfDice });
                 this.gameRoom.setState(GAME_STATE_WAITING);
             }
         }

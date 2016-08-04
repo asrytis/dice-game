@@ -18,13 +18,16 @@ describe('SetupState', function() {
         const gameRoomMock = {
             players: [player1],
             gameData: {},
-            setState: function(){ }
+            setState: function(){ },
+            setGameData: function(data){
+                this.gameData = data;
+            }
         };
 
         chai.spy.on(gameRoomMock, 'setState');
 
         const state = new SetupState(gameRoomMock);
-        state.processMessage({ type: CMD_SET_DICE, data: 3 }, player1);
+        state.processMessage({ type: CMD_SET_DICE, payload: 3 }, player1);
         
         expect(gameRoomMock.gameData.numberOfDice).to.equal(3);
         expect(gameRoomMock.setState).to.have.been.called.with.exactly(GAME_STATE_WAITING);

@@ -24,13 +24,13 @@ module.exports = class {
      * Invoked by the game room
      * @param {Player} player
      */
-    playerAdded(player) { }
+    playerJoined(player) { }
 
     /**
      * Invoked by the game room
      * @param {Player} player
      */
-    playerRemoved(player) {
+    playerLeft(player) {
         delete gameData.score[player.id];
         
         if (this.gameRoom.playerCount < 2) {
@@ -48,11 +48,13 @@ module.exports = class {
 
             const gameData = this.gameRoom.gameData;
 
-            gameData.round++;
-            gameData.score = {
-                [sender.id]: Array(gameData.numberOfDice).fill(1).map(() => randomInRange(1, 6))
-            };
-
+            this.gameRoom.setGameData({
+                round: gameData.round + 1,
+                score: {
+                    [sender.id]: Array(gameData.numberOfDice).fill(1).map(() => randomInRange(1, 6))
+                }
+            });
+            
             this.gameRoom.setState(GAME_STATE_IN_PROGRESS);
         }
     }

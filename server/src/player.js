@@ -16,6 +16,16 @@ module.exports = class Player {
     }
 
     /**
+     * @return {Object}
+     */
+    serialize() {
+        return {
+            id: this.id,
+            name: this.name
+        };
+    }
+
+    /**
      * Extracts name from the URL or returns a random one if none is found in URL
      * @param {String} url - example "/ws?Rytis"
      * @param {Number} maxLength

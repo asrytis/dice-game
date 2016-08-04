@@ -7,6 +7,9 @@
   "directories": {
     "test": "test"
   },
+  "engines": {
+    "node" : ">=6.2.2"
+  },
   "scripts": {
     "test": "mocha 'test/**/*.js'"
   },
@@ -15,7 +18,7 @@
     "url": "https://github.com/asrytis/dice-game/tree/master/server"
   },
   "author": "Rytis Ziobakas <asrytis@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",

@@ -1,6 +1,7 @@
 'use strict';
 
 const config = require('./config');
+const http = require('http');
 const WebSocketServer = require('ws').Server;
 const Player = require('./player');
 const GameRoom = require('./game-room');
@@ -13,8 +14,27 @@ const gameServer = new GameServer({
     })
 });
 
+//
+// Providing the number of players online
+//
+const server = http.createServer(function(req, res) {
+    
+    if (req.url === `${config.httpPath}/player-count`) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        
+        return res.end(JSON.stringify({
+            playerCount: gameServer.playerCount
+        }));
+    }
+
+    res.end();
+});
+
+//
+// Websocket server
+//
 const wss = new WebSocketServer({
-    port: config.wsPort,
+    server,
     path: config.wsPath
 });
 
@@ -39,4 +59,5 @@ wss.on('connection', function(ws) {
 
 });
 
-console.log('Websocket server listening on %s:%s', config.wsPath, config.wsPort);
+server.listen(config.port);
+console.log('Listening on port', config.port);

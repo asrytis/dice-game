@@ -1,5 +1,5 @@
 export const config = {
-	httpPath: '/api',
+    httpPath: '/api',
     wsPath: '/ws',
     port: process.env.PORT || 3000,
     playerNameMaxLength: 15,

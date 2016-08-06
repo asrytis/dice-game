@@ -1,18 +1,15 @@
-'use strict';
-
-const chai = require('chai');
-const spies = require('chai-spies');
+import * as chai from 'chai'; 
+import GameRoom from '../src/game-room';
+import Player from '../src/player';
+const spies = require('chai-spies'); // chai-spies incompatible with ES6 imports
 const expect = chai.expect;
-const Player = require('../src/player');
-const GameRoom = require('../src/game-room');
+
+chai.use(spies);
+
 
 class WebSocketMock {
     send() { }
 }
-
-
-chai.use(spies);
-
 
 describe('GameRoom', function() {
 

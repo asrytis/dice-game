@@ -8,17 +8,22 @@
     "test": "test"
   },
   "engines": {
-    "node" : ">=6.2.2"
+    "node": ">=6.2.2"
   },
   "scripts": {
-    "test": "mocha 'test/**/*.js'"
+    "prestart": "tsc",
+    "start": "node build/src/index",
+    "pretest": "tsc",
+    "test": "mocha 'build/test/**/*.js'",
+    "postinstall": "typings install"
   },
   "author": "Rytis Ziobakas <asrytis@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
-    "mocha": "^3.0.0"
+    "mocha": "^3.0.0",
+    "typings": "^1.3.2"
   },
   "dependencies": {
     "ws": "^1.1.1"

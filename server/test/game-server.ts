@@ -1,10 +1,7 @@
-'use strict';
-
-const chai = require('chai');
-const expect = chai.expect;
-const GameServer = require('../src/game-server');
-const GameRoom = require('../src/game-room');
-const Player = require('../src/player');
+import { expect } from 'chai';
+import GameServer from '../src/game-server';
+import GameRoom from '../src/game-room';
+import Player from '../src/player';
 
 class WebSocketMock {
     send() { }

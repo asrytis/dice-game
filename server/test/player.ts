@@ -1,14 +1,11 @@
-'use strict';
-
-const chai = require('chai');
-const expect = chai.expect;
-const Player = require('../src/player');
+import { expect } from 'chai';
+import Player from '../src/player';
 
 
 describe('Player', function() {
 
     it('should be instantiated with unique ID', function() {
-        const players = Array(100).fill(1).map(() => new Player({ws: {}, name: 'Player'}));
+        const players = Array(100).fill(1).map(() => new Player({ws: <WebSocket>{}, name: 'Player'}));
         const playerIDs = players.map((player) => player.id);
         const containsDuplicates = playerIDs.some((id, index) => playerIDs.indexOf(id) !== index);
         expect(containsDuplicates).to.equal(false);

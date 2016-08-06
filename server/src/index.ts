@@ -1,11 +1,9 @@
-'use strict';
-
-const config = require('./config');
-const http = require('http');
-const WebSocketServer = require('ws').Server;
-const Player = require('./player');
-const GameRoom = require('./game-room');
-const GameServer = require('./game-server');
+import { config } from './config';
+import * as http from 'http';
+import { Server as WebSocketServer } from 'ws';
+import Player from './player';
+import GameRoom from './game-room';
+import GameServer from './game-server';
 
 
 const gameServer = new GameServer({
@@ -40,10 +38,8 @@ const wss = new WebSocketServer({
 
 wss.on('connection', function(ws) {
 
-    const player = new Player({
-        ws,
-        name: Player.extractName(ws.upgradeReq.url, config.playerNameMaxLength)
-    });
+    const name = Player.extractName(ws.upgradeReq.url, config.playerNameMaxLength);
+    const player = new Player({ ws, name });
 
     gameServer.findAvailableRoom().addPlayer(player);
 

@@ -1,1 +1,3 @@
 server/node_modules
+server/build
+server/typings

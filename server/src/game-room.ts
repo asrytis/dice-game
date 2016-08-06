@@ -1,28 +1,38 @@
-'use strict';
+import { GAME_STATE_SETUP, GAME_STATE_WAITING, GAME_STATE_READY, GAME_STATE_IN_PROGRESS } from './constants';
+import { SetupState, WaitingState, ReadyState, InProgressState } from './game-states';
+import GameState from './game-state';
+import Player from './player';
+import * as actions from './actions';
 
-const {
-    GAME_STATE_SETUP,
-    GAME_STATE_WAITING,
-    GAME_STATE_READY,
-    GAME_STATE_IN_PROGRESS
-} = require('./constants');
-const actions = require('./actions');
-const SetupState = require('./game-states/setup');
-const WaitingState = require('./game-states/waiting');
-const ReadyState = require('./game-states/ready');
-const InProgressState = require('./game-states/in-progress');
 
+export interface GameData {
+    round: number;
+    numberOfDice: number;
+    score: {
+        [playerId: number]: number[]
+    };
+}
+
+export interface GameRoomOptions {
+    maxPlayers: number;
+}
 
 /**
  * Responsible for keeping track of the players and relaying incoming messages to active game state
  */
-module.exports = class {
+export default class GameRoom {
 
-    /**
-     * @param {Number} maxPlayers
-     */
-    constructor({ maxPlayers }) {
-        this.maxPlayers = maxPlayers;
+    public maxPlayers: number;
+    public players: Player[];
+    public states: {
+        [stateName: string]: GameState
+    };
+    public gameData: GameData;
+    public state: GameState;
+    public stateName: string;
+
+    constructor(options: GameRoomOptions) {
+        this.maxPlayers = options.maxPlayers;
         this.players = [];
         this.states = {
             [GAME_STATE_SETUP]: new SetupState(this),
@@ -40,11 +50,8 @@ module.exports = class {
         this.setState(GAME_STATE_SETUP);
     }
 
-    /**
-     * @param {String} stateName
-     */
-    setState(stateName) {
-        const newState = this.states[stateName];
+    setState(stateName: string) {
+        const newState: GameState = this.states[stateName];
         if (this.state === newState) {
             return;
         }
@@ -58,19 +65,15 @@ module.exports = class {
         }
     }
 
-    /**
-     * @param {Object} gameData
-     */
-    setGameData(gameData) {
+    setGameData(gameData: GameData) {
         this.gameData = gameData;
         actions.gameDataChanged(this, gameData);
     }
 
     /**
      * @throws {Error} Will throw an error on attempts to add a new player when the room is full
-     * @param {Player} player
      */
-    addPlayer(player) {
+    addPlayer(player: Player) {
         if (!this.hasAvailableSlots) {
             throw new Error('The room is full');
         }
@@ -82,10 +85,7 @@ module.exports = class {
         this.state.playerJoined(player);
     }
 
-    /**
-     * @param {Player} player
-     */
-    removePlayer(player) {
+    removePlayer(player: Player) {
         const index = this.players.indexOf(player);
         if (index >= 0) {
             player.room = null;
@@ -97,10 +97,9 @@ module.exports = class {
 
     /**
      * Parse a message coming from the client
-     * @param {String} message
      * @return {Object|null}
      */
-    parseMessage(message) {
+    parseMessage(message: string): any {
         try {
             return JSON.parse(message);
         } catch (err) {
@@ -108,11 +107,7 @@ module.exports = class {
         }
     }
 
-    /**
-     * @param {String} message
-     * @param {Player} sender
-     */
-    processMessage(message, sender) {
+    processMessage(message: string, sender: Player) {
         const parsedMessage = this.parseMessage(message);
 
         if (parsedMessage) {
@@ -122,10 +117,9 @@ module.exports = class {
 
     /**
      * Send message to all players in the room
-     * @param {Object} message
      * @param {Player} [exclude] - this player will be skipped
      */
-    broadcast(message, exclude) {
+    broadcast(message: any, exclude?: Player) {
         const json = JSON.stringify(message);
         this.players.forEach(
             (player) => player !== exclude && player.ws.send(json)

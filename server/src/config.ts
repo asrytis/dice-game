@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export const config = {
 	httpPath: '/api',
     wsPath: '/ws',
     port: process.env.PORT || 3000,

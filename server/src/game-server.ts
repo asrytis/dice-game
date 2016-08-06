@@ -1,23 +1,31 @@
-'use strict';
+import GameRoom from './game-room';
+
+
+export interface GameRoomFactory {
+    (): GameRoom;
+}
+
+export interface IGameServerOptions {
+    roomFactory: GameRoomFactory;
+}
 
 /**
  * The class maintains a list of game rooms and is responsible for allocating game rooms to players
  */
-module.exports = class {
+export default class GameServer {
 
-    /**
-     * @param {Function} roomFactory
-     */
-    constructor({ roomFactory }) {
-        this.roomFactory = roomFactory;
+    private roomFactory: GameRoomFactory;
+    private rooms: GameRoom[];
+
+    constructor(options: IGameServerOptions) {
+        this.roomFactory = options.roomFactory;
         this.rooms = [];
     }
 
     /**
      * Finds an existing room or creates a brand new one
-     * @return {GameRoom}
      */
-    findAvailableRoom() {
+    findAvailableRoom(): GameRoom {
         for (let room of this.rooms) {
             if (room.hasAvailableSlots) {
                 return room;
@@ -32,9 +40,8 @@ module.exports = class {
 
     /**
      * Removes the room if there are no players registered
-     * @param {GameRoom} room
      */
-    removeRoomIfEmpty(room) {
+    removeRoomIfEmpty(room: GameRoom) {
         if (room.playerCount > 0) return;
 
         const index = this.rooms.indexOf(room);
@@ -43,21 +50,19 @@ module.exports = class {
 
     /**
      * Active game rooms
-     * @return {Number}
      */
-    get roomCount() {
+    get roomCount(): number {
         return this.rooms.length;
     }
 
     /**
      * Active player count on the server
-     * @return {Number}
      */
-    get playerCount() {
+    get playerCount(): number {
         return this.rooms.reduce(
             (count, room) => count + room.playerCount,
             0
         );
     }
 
-};
+}

@@ -16,7 +16,7 @@ const roomFactory = () => new GameRoom({
             [GAME_STATE_SETUP]: new SetupState(gameRoom),
             [GAME_STATE_WAITING]: new WaitingState(gameRoom),
             [GAME_STATE_READY]: new ReadyState(gameRoom),
-            [GAME_STATE_IN_PROGRESS]: new InProgressState(gameRoom)
+            [GAME_STATE_IN_PROGRESS]: new InProgressState(gameRoom, config.roundDuration)
         };
     }
 });

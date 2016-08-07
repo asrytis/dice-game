@@ -12,8 +12,12 @@ export default class InProgressState extends GameState {
 
     private timerID: NodeJS.Timer;
 
+    constructor(gameRoom: GameRoom, private roundDuration = 5000) {
+        super(gameRoom);
+    }
+
     enterState() {
-        this.timerID = setTimeout(() => this.roundFinished, 5000);
+        this.timerID = setTimeout(() => this.roundFinished, this.roundDuration);
     }
 
     playerLeft(player: Player) {

@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 import Player from '../src/player';
+import { createPlayer } from './test-helpers/player';
 
 
 describe('Player', function() {
 
     it('should be instantiated with unique ID', function() {
-        const players = Array(100).fill(1).map(() => new Player({ws: <WebSocket>{}, name: 'Player'}));
+        const players = Array(100).fill(1).map(() => createPlayer('Player'));
         const playerIDs = players.map((player) => player.id);
         const containsDuplicates = playerIDs.some((id, index) => playerIDs.indexOf(id) !== index);
         expect(containsDuplicates).to.equal(false);

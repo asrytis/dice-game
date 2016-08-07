@@ -1,27 +1,25 @@
-import * as chai from 'chai'; 
-import GameRoom from '../src/game-room';
-import Player from '../src/player';
+import * as chai from 'chai';
+import GameState from '../src/game-state';
+import { default as GameRoom, GameRoomOptions } from '../src/game-room';
+import { createPlayer } from './test-helpers/player';
+import { createGameRoomOptions } from './test-helpers/game-room';
 const spies = require('chai-spies'); // chai-spies incompatible with ES6 imports
 const expect = chai.expect;
 
 chai.use(spies);
 
 
-class WebSocketMock {
-    send() { }
-}
-
 describe('GameRoom', function() {
 
     describe('addPlayer(player)', function() {
 
         it('should register player with the room', function() {
-            const gameRoom = new GameRoom({ maxPlayers: 6 });
+            const gameRoom = new GameRoom(createGameRoomOptions(6));
 
             expect(gameRoom.playerCount).to.equal(0);
 
-            const player1 = new Player({ ws: new WebSocketMock(), name: 'Player 1' });
-            const player2 = new Player({ ws: new WebSocketMock(), name: 'Player 2' });
+            const player1 = createPlayer('Player 1');
+            const player2 = createPlayer('Player 2');
 
             gameRoom.addPlayer(player1);
             expect(gameRoom.playerCount).to.equal(1);
@@ -34,21 +32,21 @@ describe('GameRoom', function() {
         });
 
         it('should throw an error when trying to add more players than the room supports', function() {
-            const gameRoom = new GameRoom({ maxPlayers: 2 });
+            const gameRoom = new GameRoom(createGameRoomOptions(2));
 
-            gameRoom.addPlayer(new Player({ ws: new WebSocketMock(), name: 'Player 1' }));
-            gameRoom.addPlayer(new Player({ ws: new WebSocketMock(), name: 'Player 2' }));
+            gameRoom.addPlayer(createPlayer('Player 1'));
+            gameRoom.addPlayer(createPlayer('Player 2'));
 
-            const attemptToAddOneMore = () => gameRoom.addPlayer(new Player({ ws: new WebSocketMock(), name: 'Player 3' }));
+            const attemptToAddOneMore = () => gameRoom.addPlayer(createPlayer('Player 3'));
             expect(attemptToAddOneMore).to.throw(Error);
         });
 
     });
 
     it('removePlayer(player) should remove player from the list', function() {
-        const gameRoom = new GameRoom({ maxPlayers: 6 });
-        const player1 = new Player({ ws: new WebSocketMock(), name: 'Player 1' });
-        const player2 = new Player({ ws: new WebSocketMock(), name: 'Player 2' });
+        const gameRoom = new GameRoom(createGameRoomOptions(6));
+        const player1 = createPlayer('Player 1');
+        const player2 = createPlayer('Player 2');
 
         gameRoom.addPlayer(player1);
         gameRoom.addPlayer(player2);
@@ -68,9 +66,9 @@ describe('GameRoom', function() {
     });
 
     it('broadcast(message, exclude) should send message to all players in the room', function() {
-        const gameRoom = new GameRoom({ maxPlayers: 6 });
-        const player1 = new Player({ ws: { send: function(){} }, name: 'Player 1' });
-        const player2 = new Player({ ws: { send: function(){} }, name: 'Player 2' });
+        const gameRoom = new GameRoom(createGameRoomOptions(6));
+        const player1 = createPlayer('Player 1');
+        const player2 = createPlayer('Player 2');
 
         gameRoom.addPlayer(player1);
         gameRoom.addPlayer(player2);
@@ -96,7 +94,7 @@ describe('GameRoom', function() {
     });
 
     it('parseMessage(message) should convert string to object', function() {
-        const gameRoom = new GameRoom({ maxPlayers: 6 });
+        const gameRoom = new GameRoom(createGameRoomOptions(6));
 
         expect(gameRoom.parseMessage('{ "prop": 1 }')).to.eql({ prop: 1 });
         expect(gameRoom.parseMessage('{ invalidJSON }')).to.equal(null);

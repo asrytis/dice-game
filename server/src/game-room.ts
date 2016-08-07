@@ -1,9 +1,17 @@
-import { GAME_STATE_SETUP, GAME_STATE_WAITING, GAME_STATE_READY, GAME_STATE_IN_PROGRESS } from './constants';
-import { SetupState, WaitingState, ReadyState, InProgressState } from './game-states';
 import GameState from './game-state';
 import Player from './player';
 import * as actions from './actions';
 
+
+export interface StateMap {
+    [stateName: string]: GameState
+}
+
+export interface GameRoomOptions {
+    maxPlayers: number;
+    defaultState: string;
+    stateFactory: (gameRoom: GameRoom) => StateMap;
+}
 
 export interface GameData {
     round: number;
@@ -13,10 +21,6 @@ export interface GameData {
     };
 }
 
-export interface GameRoomOptions {
-    maxPlayers: number;
-}
-
 /**
  * Responsible for keeping track of the players and relaying incoming messages to active game state
  */
@@ -24,9 +28,7 @@ export default class GameRoom {
 
     public maxPlayers: number;
     public players: Player[];
-    public states: {
-        [stateName: string]: GameState
-    };
+    public states: StateMap;
     public gameData: GameData;
     public state: GameState;
     public stateName: string;
@@ -34,12 +36,7 @@ export default class GameRoom {
     constructor(options: GameRoomOptions) {
         this.maxPlayers = options.maxPlayers;
         this.players = [];
-        this.states = {
-            [GAME_STATE_SETUP]: new SetupState(this),
-            [GAME_STATE_WAITING]: new WaitingState(this),
-            [GAME_STATE_READY]: new ReadyState(this),
-            [GAME_STATE_IN_PROGRESS]: new InProgressState(this)
-        };
+        this.states = options.stateFactory(this);
         this.gameData = {
             round: 0,
             numberOfDice: 4,
@@ -47,7 +44,7 @@ export default class GameRoom {
         };
         this.state = null;
         this.stateName = '';
-        this.setState(GAME_STATE_SETUP);
+        this.setState(options.defaultState);
     }
 
     setState(stateName: string) {
@@ -155,4 +152,4 @@ export default class GameRoom {
         return this.players.length;
     }
 
-};
+}

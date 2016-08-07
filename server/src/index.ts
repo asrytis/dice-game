@@ -1,16 +1,27 @@
 import { config } from './config';
 import * as http from 'http';
 import { Server as WebSocketServer } from 'ws';
+import { GAME_STATE_SETUP, GAME_STATE_WAITING, GAME_STATE_READY, GAME_STATE_IN_PROGRESS } from './constants';
+import { SetupState, WaitingState, ReadyState, InProgressState } from './game-states';
 import Player from './player';
 import GameRoom from './game-room';
 import GameServer from './game-server';
 
 
-const gameServer = new GameServer({
-    roomFactory: () => new GameRoom({
-        maxPlayers: config.playersPerRoom
-    })
+const roomFactory = () => new GameRoom({
+    maxPlayers: config.playersPerRoom,
+    defaultState: GAME_STATE_SETUP,
+    stateFactory: (gameRoom: GameRoom) => {
+        return {
+            [GAME_STATE_SETUP]: new SetupState(gameRoom),
+            [GAME_STATE_WAITING]: new WaitingState(gameRoom),
+            [GAME_STATE_READY]: new ReadyState(gameRoom),
+            [GAME_STATE_IN_PROGRESS]: new InProgressState(gameRoom)
+        };
+    }
 });
+
+const gameServer = new GameServer({ roomFactory });
 
 //
 // Providing the number of players online

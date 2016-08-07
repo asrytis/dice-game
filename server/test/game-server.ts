@@ -6,11 +6,9 @@ import { createPlayer } from './test-helpers/player';
 import { createGameRoomOptions } from './test-helpers/game-room';
 
 
-const createGameServerOptions = (maxPlayers: number) => {
-    return {
-        roomFactory: () => new GameRoom(createGameRoomOptions(maxPlayers)) 
-    }
-};
+const createGameServerOptions = (maxPlayers: number) => ({
+    roomFactory: () => new GameRoom(createGameRoomOptions(maxPlayers))
+});
 
 describe('game-server', function() {
 

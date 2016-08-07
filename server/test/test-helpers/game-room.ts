@@ -6,10 +6,8 @@ export const createGameRoomOptions = (maxPlayers: number): GameRoomOptions => {
     return {
         maxPlayers,
         defaultState: 'start',
-        stateFactory: (gameRoom: GameRoom) => {
-            return {
-                'start': new GameState(gameRoom)
-            }
-        }
+        stateFactory: (gameRoom: GameRoom) => ({
+            'start': new GameState(gameRoom)
+        })
     }
 };

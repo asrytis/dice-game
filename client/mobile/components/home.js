@@ -46,7 +46,7 @@ export default class extends React.Component {
                     <View style={[styles.textInputContainer, this.state.isConnecting ? styles.disabled : {}]}>
                         <TextInput style={styles.textInput} maxLength={15} placeholder="Player name" placeholderTextColor={color.light2} />
                         <TouchableHighlight style={styles.button} disabled={this.state.isConnecting} onPress={() => this.onSubmit()}>
-                            <Text style={styles.textButton}>GO</Text>
+                            <Text style={styles.buttonText}>GO</Text>
                         </TouchableHighlight>
                     </View>
                     <Text style={styles.feedbackText}>{feedbackText}</Text>

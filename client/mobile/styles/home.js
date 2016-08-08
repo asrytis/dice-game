@@ -32,7 +32,7 @@ export default StyleSheet.create({
         top: 1,
         right: 1
     },
-    textButton: styles.textButton,
+    buttonText: styles.textButton,
     feedbackText: {
         ...styles.textBody,
         width: 240,

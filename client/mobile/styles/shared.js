@@ -10,7 +10,8 @@ export const color = {
 
 export const fontSize = {
     normal: 16,
-    title: 42
+    title: 42,
+    subtitle: 24
 };
 
 export const fontWeight = {

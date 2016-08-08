@@ -1,5 +1,5 @@
 import GameState from './game-state';
-import Player from './player';
+import Player, { PlayerSerialized } from './player';
 import * as actions from './actions';
 
 
@@ -19,6 +19,17 @@ export interface GameData {
     score: {
         [playerId: number]: number[]
     };
+}
+
+export interface GameRoomSerialized {
+    stateName: string;
+    gameData: any
+    players: PlayerSerialized[];
+}
+
+export interface Message {
+    type: string;
+    payload?: any;
 }
 
 /**
@@ -94,14 +105,12 @@ export default class GameRoom {
 
     /**
      * Parse a message coming from the client
-     * @return {Object|null}
+     * @return {Message|undefined}
      */
-    parseMessage(message: string): any {
+    parseMessage(message: string): Message {
         try {
             return JSON.parse(message);
-        } catch (err) {
-            return null;
-        }
+        } catch (err) { }
     }
 
     processMessage(message: string, sender: Player) {
@@ -123,11 +132,7 @@ export default class GameRoom {
         );
     }
 
-    /**
-     * Serialize the full game state
-     * @return {Object}
-     */
-    serialize() {
+    serialize(): GameRoomSerialized {
         return {
             stateName: this.stateName,
             gameData: this.gameData,
@@ -139,16 +144,12 @@ export default class GameRoom {
 
     /**
      * Checks if a new player can be added to the room
-     * @return {Boolean}
      */
-    get hasAvailableSlots() {
+    get hasAvailableSlots(): boolean {
         return this.playerCount < this.maxPlayers;
     }
 
-    /**
-     * @return {Number}
-     */
-    get playerCount() {
+    get playerCount(): number {
         return this.players.length;
     }
 

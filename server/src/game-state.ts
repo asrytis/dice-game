@@ -1,4 +1,4 @@
-import GameRoom, { GameData } from './game-room';
+import GameRoom, { GameData, Message } from './game-room';
 import Player from './player';
 
 
@@ -9,5 +9,5 @@ export default class GameState {
     enterState() { }
     playerJoined(player: Player) { }
     playerLeft(player: Player) { }
-    processMessage(message: any, sender: Player) { }
+    processMessage(message: Message, sender: Player) { }
 }

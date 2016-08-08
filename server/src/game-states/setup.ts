@@ -1,6 +1,6 @@
 import { GAME_STATE_WAITING, CMD_SET_DICE } from '../constants';
 import { inRange } from '../util';
-import GameRoom from '../game-room';
+import GameRoom, { Message } from '../game-room';
 import Player from '../player';
 import GameState from '../game-state';
 
@@ -10,7 +10,7 @@ import GameState from '../game-state';
  */
 export default class SetupState extends GameState {
 
-    processMessage(message, sender) {
+    processMessage(message: Message, sender: Player) {
         // Make sure it's coming from the host
         if (sender !== this.gameRoom.players[0]) {
             return;

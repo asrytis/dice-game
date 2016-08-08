@@ -14,7 +14,7 @@ export default class WaitingState extends GameState {
         this.checkIfEnoughPlayers();
     }
 
-    playerJoined(player) {
+    playerJoined(player: Player) {
         this.checkIfEnoughPlayers();
     }
 

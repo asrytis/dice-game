@@ -1,6 +1,6 @@
 import { GAME_STATE_WAITING, GAME_STATE_READY, CMD_ROLL_DICE } from '../constants';
 import { randomInRange } from '../util';
-import GameRoom from '../game-room';
+import GameRoom, { Message } from '../game-room';
 import Player from '../player';
 import GameState from '../game-state';
 
@@ -34,7 +34,7 @@ export default class InProgressState extends GameState {
         }
     }
 
-    processMessage(message: any, sender: Player) {
+    processMessage(message: Message, sender: Player) {
         if (message.type === CMD_ROLL_DICE) {
 
             const gameData = this.gameRoom.gameData;

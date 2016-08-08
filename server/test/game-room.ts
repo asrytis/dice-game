@@ -97,7 +97,7 @@ describe('GameRoom', function() {
         const gameRoom = new GameRoom(createGameRoomOptions(6));
 
         expect(gameRoom.parseMessage('{ "prop": 1 }')).to.eql({ prop: 1 });
-        expect(gameRoom.parseMessage('{ invalidJSON }')).to.equal(null);
+        expect(gameRoom.parseMessage('{ invalidJSON }')).to.equal(undefined);
     });
 
 });

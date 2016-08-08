@@ -15,6 +15,7 @@ export interface GameRoomOptions {
 
 export interface GameData {
     round: number;
+    roundStarted?: number;
     numberOfDice: number;
     score: {
         [playerId: number]: number[]
@@ -23,7 +24,7 @@ export interface GameData {
 
 export interface GameRoomSerialized {
     stateName: string;
-    gameData: any
+    gameData: GameData;
     players: PlayerSerialized[];
 }
 

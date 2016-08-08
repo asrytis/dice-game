@@ -10,6 +10,13 @@ import GameState from '../game-state';
  */
 export default class ReadyState extends GameState {
 
+    enterState() {
+        const newGameData = Object.assign({}, this.gameRoom.gameData);
+        newGameData.roundStarted = undefined;
+        
+        this.gameRoom.setGameData(newGameData);
+    }
+
     playerLeft(player: Player) {
         const gameRoom = this.gameRoom;
 
@@ -29,6 +36,7 @@ export default class ReadyState extends GameState {
             const newGameData = Object.assign({}, gameData);
             
             newGameData.round++;
+            newGameData.roundStarted = new Date().getTime();
             newGameData.score = {
                 [sender.id]: Array(gameData.numberOfDice).fill(1).map(() => randomInRange(1, 6))
             };

@@ -1,4 +1,4 @@
-import GameRoom from './game-room';
+import GameRoom, { GameData } from './game-room';
 import Player from './player';
 import { SV_GAME_STATE, SV_PLAYER_JOINED, SV_PLAYER_LEFT, SV_GAME_STATE_CHANGED, SV_GAME_DATA_CHANGED } from './constants';
 
@@ -25,16 +25,19 @@ export function playerLeft(gameRoom: GameRoom, player: Player) {
     }, player);
 }
 
-export function gameStateChanged(gameRoom: GameRoom, newState) {
+export function gameStateChanged(gameRoom: GameRoom, newState: string) {
     gameRoom.broadcast({
         type: SV_GAME_STATE_CHANGED,
         payload: newState
     });
 }
 
-export function gameDataChanged(gameRoom: GameRoom, gameData) {
+export function gameDataChanged(gameRoom: GameRoom, gameData: GameData) {
     gameRoom.broadcast({
         type: SV_GAME_DATA_CHANGED,
-        payload: gameData
+        payload: {
+            serverTime: new Date().getTime(),
+            gameData
+        }
     });
 }

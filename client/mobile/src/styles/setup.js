@@ -4,7 +4,6 @@ import { color, styles } from './shared';
 
 export default StyleSheet.create({
     disabled: styles.disabled,
-    container: styles.container,
     navbar: {
         height: 64,
         alignSelf: 'stretch',

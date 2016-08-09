@@ -5,7 +5,8 @@ export const color = {
     light1: '#FBFFED',
     light2: '#EEEFE3',
     dark1: '#002B47',
-    dark2: 'rgba(0, 0, 0, 0.33)'
+    dark2: 'rgba(0, 0, 0, 0.33)',
+    dark3: 'rgba(0, 0, 0, 0.12)'
 };
 
 export const fontSize = {
@@ -20,7 +21,10 @@ export const fontWeight = {
 };
 
 export const borderRadius = {
-    normal: 20
+    tiny: 5,
+    small: 10,
+    normal: 20,
+    large: 100
 };
 
 // Base styles to extend from

@@ -4,7 +4,6 @@ import { color, fontSize, fontWeight, borderRadius, styles } from './shared';
 
 export default StyleSheet.create({
     disabled: styles.disabled,
-    container: styles.container,
     title: {
         ...styles.textTitle,
         marginTop: 109

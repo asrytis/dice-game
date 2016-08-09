@@ -22,8 +22,25 @@ export default class Setup extends React.Component {
         setTimeout(() => this.setState({...this.state, isConnecting: false }), 2000);
     }
 
+    renderHeaderText() {
+        return <Text style={styles.text}>Waiting for more players to join ...</Text>;
+    }
+
+    renderHeaderProgress() {
+        return (
+            <View style={styles.roundProgressContainer}>
+                <Text style={styles.text}>Round</Text>
+                <Text style={styles.title}>6</Text>
+                <View style={styles.progressBarContainer}>
+                    <View style={[styles.progressBar, { width: 70 }]}/>
+                </View>
+            </View>
+        );
+    }
+
     render() {
         const buttonDisabled = false;
+        const headerContent = this.renderHeaderProgress();
 
         return (
             <Background>
@@ -32,7 +49,7 @@ export default class Setup extends React.Component {
                     <Button style={styles.navbarButtonRight} textStyle={styles.navbarButtonText} onPress={() => {}}>Help</Button>
                 </View>
                 <View style={styles.header}>
-                    <Text style={styles.text}>Waiting for more players to join ...</Text>
+                    {headerContent}
                 </View>
 
                 <View style={styles.playersContainer}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Actions } from 'react-native-router-flux';
 import { Text, View, Image, TextInput } from 'react-native';
 import { color } from '../styles/shared';
 import styles from '../styles/home';
@@ -20,13 +21,16 @@ export default class Home extends React.Component {
     }
     
     componentWillMount() {
-        this.setState({...this.state, isLoadingPlayerCount: true });
-        setTimeout(() => this.setState({...this.state, isLoadingPlayerCount: false, playerCount: 3 }), 3000);
+        this.setState({ isLoadingPlayerCount: true });
+        setTimeout(() => this.setState({ isLoadingPlayerCount: false, playerCount: 3 }), 3000);
     }
 
     onSubmit() {
-        this.setState({...this.state, isConnecting: true });
-        setTimeout(() => this.setState({...this.state, isConnecting: false }), 2000);
+        this.setState({ isConnecting: true });
+        setTimeout(() => {
+            this.setState({ isConnecting: false });
+            Actions.setup();
+        }, 2000);
     }
 
     render() {

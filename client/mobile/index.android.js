@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import App from './src/components/game';
+import App from './src/app';
 
 AppRegistry.registerComponent('mobile', () => App);

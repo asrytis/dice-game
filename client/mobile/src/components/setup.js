@@ -1,4 +1,5 @@
 import React from 'react';
+import { Actions } from 'react-native-router-flux';
 import { Text, View } from 'react-native';
 import Background from './background';
 import Button from './button';
@@ -17,8 +18,11 @@ export default class Setup extends React.Component {
     }
     
     onOptionSelect() {
-        this.setState({...this.state, isConnecting: true });
-        setTimeout(() => this.setState({...this.state, isConnecting: false }), 2000);
+        this.setState({ isConnecting: true });
+        setTimeout(() => {
+            this.setState({ isConnecting: false });
+            Actions.game();
+        }, 2000);
     }
 
     render() {
@@ -29,7 +33,7 @@ export default class Setup extends React.Component {
         return (
             <Background>
                 <View style={styles.navbar}>
-                    <Button style={styles.navbarButton} textStyle={styles.navbarButtonText} onPress={() => {}}>&lt; Home</Button>
+                    <Button style={styles.navbarButton} textStyle={styles.navbarButtonText} onPress={() => Actions.popTo('home')}>&lt; Home</Button>
                 </View>
                 <Text style={styles.title}>Game setup</Text>
                 <Text style={styles.instructions}>You’re the first player to join the table!

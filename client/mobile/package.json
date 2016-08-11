@@ -13,6 +13,7 @@
     "react-native-router-flux": "^3.34.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
-    "redux-create-reducer": "^1.1.1"
+    "redux-create-reducer": "^1.1.1",
+    "redux-thunk": "^2.1.0"
   }
 }

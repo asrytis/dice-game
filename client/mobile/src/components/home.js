@@ -1,18 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Text, View, Image, TextInput } from 'react-native';
+import autobind from 'autobind-decorator';
 import { color } from '../styles/shared';
 import styles from '../styles/home';
 import Background from './background';
 import Button from './button';
 
 
+@connect(({routes}) => ({routes}))
 export default class Home extends React.Component {
 
     constructor(props) {
         super(props);
 
-        this.onSubmit = this.onSubmit.bind(this);
         this.state = {
             isLoadingPlayerCount: false,
             playerCount: 0,
@@ -25,6 +27,7 @@ export default class Home extends React.Component {
         setTimeout(() => this.setState({ isLoadingPlayerCount: false, playerCount: 3 }), 3000);
     }
 
+    @autobind
     onSubmit() {
         this.setState({ isConnecting: true });
         setTimeout(() => {

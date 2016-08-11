@@ -1,6 +1,7 @@
 import React from 'react';
 import { Actions } from 'react-native-router-flux';
 import { Text, View } from 'react-native';
+import autobind from 'autobind-decorator';
 import Background from './background';
 import Button from './button';
 import styles from '../styles/setup';
@@ -11,12 +12,12 @@ export default class Setup extends React.Component {
     constructor(props) {
         super(props);
 
-        this.onOptionSelect = this.onOptionSelect.bind(this);
         this.state = {
             isConnecting: false
         };
     }
     
+    @autobind
     onOptionSelect() {
         this.setState({ isConnecting: true });
         setTimeout(() => {

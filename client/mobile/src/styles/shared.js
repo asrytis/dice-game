@@ -6,7 +6,8 @@ export const color = {
     light2: '#EEEFE3',
     dark1: '#002B47',
     dark2: 'rgba(0, 0, 0, 0.33)',
-    dark3: 'rgba(0, 0, 0, 0.12)'
+    dark3: 'rgba(0, 0, 0, 0.12)',
+    background: '#2C6B94'
 };
 
 export const fontSize = {

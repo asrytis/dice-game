@@ -7,10 +7,10 @@ import { fetchPlayers } from './actions/players-online';
 import wsMiddleware from './middleware/ws';
 import sceneOnEnterMiddleware from './middleware/scene-on-enter';
 import { color } from './styles/shared';
-import Home from './components/home';
-import Setup from './components/setup';
-import Game from './components/game';
-import Help from './components/help';
+import Home from './scenes/home';
+import Setup from './scenes/setup';
+import Game from './scenes/game';
+import Help from './scenes/help';
 import reducers from './reducers';
 
 

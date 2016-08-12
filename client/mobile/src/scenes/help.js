@@ -1,8 +1,8 @@
 import React from 'react';
 import { Actions } from 'react-native-router-flux';
 import { Text, View } from 'react-native';
-import Background from './background';
-import Button from './button';
+import Background from '../components/background';
+import Button from '../components/button';
 import styles from '../styles/help';
 
 

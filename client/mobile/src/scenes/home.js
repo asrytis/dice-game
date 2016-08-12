@@ -5,8 +5,8 @@ import autobind from 'autobind-decorator';
 import { wsConnect } from '../actions/ws';
 import { color } from '../styles/shared';
 import styles from '../styles/home';
-import Background from './background';
-import Button from './button';
+import Background from '../components/background';
+import Button from '../components/button';
 
 
 const mapStateToProps = ({ routes, playersOnline, ws }) => ({ routes, playersOnline, ws });

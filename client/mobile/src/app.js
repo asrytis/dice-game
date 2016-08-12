@@ -2,7 +2,8 @@ import React from 'React';
 import { Scene, Router } from 'react-native-router-flux';
 import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk';
+import wsMiddleware from './middleware/ws';
 import { color } from './styles/shared';
 import Home from './components/home';
 import Setup from './components/setup';
@@ -12,7 +13,7 @@ import reducers from './reducers';
 
 
 const RouterWithRedux = connect()(Router);
-const middleware = [thunkMiddleware];
+const middleware = [thunkMiddleware, wsMiddleware];
 const store = compose(applyMiddleware(...middleware))(createStore)(reducers);
 
 export default class App extends React.Component {

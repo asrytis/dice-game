@@ -11,5 +11,5 @@ export const fetchPlayers = () => (dispatch, getState) => {
     return fetch('http://localhost:3000/api/player-count')
         .then(response => response.json())
         .then(json => dispatch(playersRequestSuccess(json.playerCount)))
-        .catch(error => dispatch(playersRequestFailure(error)))
+        .catch(({ message }) => dispatch(playersRequestFailure(message)))
 };

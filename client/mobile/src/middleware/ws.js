@@ -7,7 +7,6 @@ import {
     wsError
 } from '../actions/ws.js';
 
-
 let ws;
 
 const wsMiddleware = store => next => action => {

@@ -6,7 +6,6 @@ import Background from '../components/background';
 import Button from '../components/button';
 import styles from '../styles/setup';
 
-
 export default class Setup extends React.Component {
 
     constructor(props) {

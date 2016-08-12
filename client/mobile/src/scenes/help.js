@@ -5,7 +5,6 @@ import Background from '../components/background';
 import Button from '../components/button';
 import styles from '../styles/help';
 
-
 export default class Help extends React.Component {
 
     render() {

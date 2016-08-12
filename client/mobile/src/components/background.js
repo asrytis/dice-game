@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, StatusBar, View, StyleSheet } from 'react-native';
 
-
 export default function Background(props) {
     return (
         <View>

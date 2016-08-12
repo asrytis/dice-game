@@ -11,7 +11,6 @@ const dice = [
     require('../assets/images/dice/6.png')
 ];
 
-
 export default class Player extends React.Component {
 
     render() {

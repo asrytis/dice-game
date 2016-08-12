@@ -6,7 +6,6 @@ import Button from '../components/button';
 import Player from '../components/player';
 import styles from '../styles/game';
 
-
 export default class Game extends React.Component {
 
     renderHeaderText() {

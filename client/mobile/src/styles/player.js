@@ -31,12 +31,16 @@ export default StyleSheet.create({
         width: 108,
         marginLeft: 15,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-end'
     },
     dicePlaceholder: {
         width: 24,
         height: 24,
+        marginLeft: 4,
         borderRadius: borderRadius.tiny,
         backgroundColor: color.dark3
+    },
+    dice: {
+        marginLeft: 4
     }
 });

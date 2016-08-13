@@ -8,11 +8,10 @@ import styles from '../styles/home';
 import Background from '../components/background';
 import Button from '../components/button';
 
-
-const mapStateToProps = ({ routes, playersOnline, ws }) => ({ routes, playersOnline, ws });
-const mapDispatchToProps = { wsConnect };
-
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    ({ routes, playersOnline, ws }) => ({ routes, playersOnline, ws }),
+    { wsConnect }
+)
 export default class Home extends React.Component {
 
     constructor(props) {
@@ -31,7 +30,7 @@ export default class Home extends React.Component {
     render() {
         const { playersOnline, ws } = this.props;
         const feedbackText = ws.isConnecting ? 'Connecting ...' : '';
-        const playersOnlineText = (playersOnline.isFetching || playersOnline.error) ? '' : `${playersOnline.value} players online`;
+        const playersOnlineText = playersOnline.error || `${playersOnline.value} players online`;
         
         return (
             <Background>

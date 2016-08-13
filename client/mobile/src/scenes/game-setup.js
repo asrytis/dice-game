@@ -1,12 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Text, View } from 'react-native';
-import autobind from 'autobind-decorator';
+import { cmdSetDice } from '../actions/game';
 import Background from '../components/background';
 import Button from '../components/button';
 import styles from '../styles/setup';
 
-export default class Setup extends React.Component {
+@connect(null, { cmdSetDice })
+export default class GameSetup extends React.Component {
 
     constructor(props) {
         super(props);
@@ -16,13 +18,9 @@ export default class Setup extends React.Component {
         };
     }
     
-    @autobind
-    onOptionSelect() {
+    onOptionSelect(index) {
+        this.props.cmdSetDice(index + 1);
         this.setState({ isConnecting: true });
-        setTimeout(() => {
-            this.setState({ isConnecting: false });
-            Actions.game();
-        }, 2000);
     }
 
     render() {
@@ -40,7 +38,7 @@ export default class Setup extends React.Component {
 Please select the number of dice to roll:</Text>
                 <View style={[styles.buttonGroup, this.state.isConnecting ? styles.disabled : null]}>
                     {options.map((label, index) => (
-                        <Button key={index} style={styles.button} disabled={isConnecting} onPress={this.onOptionSelect}>{label}</Button>
+                        <Button key={index} style={styles.button} disabled={isConnecting} onPress={() => this.onOptionSelect(index)}>{label}</Button>
                     ))}
                 </View>
                 <Text style={styles.feedbackText}>{feedbackText}</Text>

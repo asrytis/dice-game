@@ -4,7 +4,7 @@ import { PLAYERS_REQUEST, PLAYERS_REQUEST_SUCCESS, PLAYERS_REQUEST_FAILURE } fro
 const initialState = {
     isFetching: false,
     error: null,
-    value: null
+    value: 0
 };
 
 export default createReducer(initialState, {

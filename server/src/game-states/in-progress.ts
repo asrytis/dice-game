@@ -17,7 +17,7 @@ export default class InProgressState extends GameState {
     }
 
     enterState() {
-        this.timerID = setTimeout(() => this.roundFinished, this.roundDuration);
+        this.timerID = setTimeout(() => this.roundFinished(), this.roundDuration);
     }
 
     playerLeft(player: Player) {

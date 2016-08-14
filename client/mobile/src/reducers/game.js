@@ -7,15 +7,14 @@ import {
     SV_GAME_DATA_CHANGED
 } from '../actions/game';
 
-export const player = createReducer({ id: null, name: '' }, {
-    [SV_GAME_STATE](state, action) {
-        return {
-            ...action.payload.player
-        };
-    }
-});
+const initialState = {
+    stateName: '',
+    players: [],
+    gameData: {},
+    serverTime: 0
+};
 
-export const game = createReducer({ stateName: '', players: [], gameData: {}, serverTime: 0 }, {
+export default createReducer(initialState, {
     [SV_GAME_STATE](state, action) {
         return {
             ...action.payload.state

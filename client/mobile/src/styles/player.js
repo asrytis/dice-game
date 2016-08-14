@@ -4,14 +4,14 @@ import { color, styles, borderRadius } from './shared';
 
 export default StyleSheet.create({
     container: {
-        height: 48,
+        height: 40,
         marginBottom: 1,
-        paddingHorizontal: 20,
+        paddingHorizontal: 14,
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
         borderRadius: borderRadius.small,
-        backgroundColor: 'rgba(255, 255, 255, 0.24)'
+        backgroundColor: 'transparent'
     },
     containerLeft: {
         flex: 1,
@@ -42,5 +42,8 @@ export default StyleSheet.create({
     },
     dice: {
         marginLeft: 4
+    },
+    winner: {
+        backgroundColor: 'rgba(255, 255, 255, 0.24)'
     }
 });

@@ -35,7 +35,7 @@ export default class Player extends React.Component {
         let content = dice ? this.renderDice(dice) : slots > 0 ? this.renderSlots(slots) : null;
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, isWinner ? styles.winner : null]}>
                 <View style={styles.containerLeft}>
                     <Text style={styles.name}>{name} {isUser ? '(me)' : ''}</Text>
                 </View>

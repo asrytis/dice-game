@@ -55,7 +55,8 @@ export default StyleSheet.create({
     text: styles.textBody,
     playersContainer: {
         alignSelf: 'stretch',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
+        paddingHorizontal: 14
     },
     buttonContainer: {
         position: 'absolute',

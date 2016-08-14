@@ -10,12 +10,13 @@ import GameServer from './game-server';
 
 const roomFactory = () => new GameRoom({
     maxPlayers: config.playersPerRoom,
+    roundDuration: config.roundDuration,
     defaultState: GAME_STATE_SETUP,
     stateFactory: (gameRoom: GameRoom) => ({
         [GAME_STATE_SETUP]: new SetupState(gameRoom),
         [GAME_STATE_WAITING]: new WaitingState(gameRoom),
         [GAME_STATE_READY]: new ReadyState(gameRoom),
-        [GAME_STATE_IN_PROGRESS]: new InProgressState(gameRoom, config.roundDuration)
+        [GAME_STATE_IN_PROGRESS]: new InProgressState(gameRoom)
     })
 });
 

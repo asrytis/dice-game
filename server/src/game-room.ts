@@ -9,6 +9,7 @@ export interface StateMap {
 
 export interface GameRoomOptions {
     maxPlayers: number;
+    roundDuration: number;
     defaultState: string;
     stateFactory: (gameRoom: GameRoom) => StateMap;
 }
@@ -20,6 +21,7 @@ export interface DiceScore {
 
 export interface GameData {
     round?: number;
+    roundDuration?: number;
     roundStarted?: number;
     numberOfDice?: number;
     score?: {
@@ -59,6 +61,7 @@ export default class GameRoom {
         this.states = options.stateFactory(this);
         this.gameData = {
             round: 0,
+            roundDuration: options.roundDuration,
             roundStarted: null,
             numberOfDice: 4,
             score: {},

@@ -100,4 +100,21 @@ describe('GameRoom', function() {
         expect(gameRoom.parseMessage('{ invalidJSON }')).to.equal(undefined);
     });
 
+    it('setGameData(gameData) should merge the changes in', function() {
+        const gameRoom = new GameRoom(createGameRoomOptions(6));
+
+        const gameData = { round: 10, numberOfDice: 2 };
+        gameRoom.setGameData(gameData);
+
+        expect(gameRoom.gameData.round).to.equal(gameData.round);
+        expect(gameRoom.gameData.numberOfDice).to.equal(gameData.numberOfDice);
+
+        gameRoom.setGameData({ numberOfDice: 4 });
+
+        // Only the number of dice should have changed
+        expect(gameRoom.gameData.round).to.equal(gameData.round);
+        expect(gameRoom.gameData.numberOfDice).to.equal(4);
+
+    });
+
 });

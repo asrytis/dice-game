@@ -13,13 +13,21 @@ export interface GameRoomOptions {
     stateFactory: (gameRoom: GameRoom) => StateMap;
 }
 
+export interface DiceScore {
+    dice: number[];
+    value: number;
+}
+
 export interface GameData {
     round: number;
     roundStarted?: number;
     numberOfDice: number;
     score: {
-        [playerId: number]: number[]
+        [playerId: number]: DiceScore
     };
+    winners: {
+        [playerId: number]: boolean;
+    }
 }
 
 export interface GameRoomSerialized {
@@ -51,8 +59,10 @@ export default class GameRoom {
         this.states = options.stateFactory(this);
         this.gameData = {
             round: 0,
+            roundStarted: null,
             numberOfDice: 4,
-            score: { }
+            score: {},
+            winners: {}
         };
         this.state = null;
         this.stateName = '';
@@ -74,9 +84,9 @@ export default class GameRoom {
         }
     }
 
-    setGameData(gameData: GameData) {
-        this.gameData = gameData;
-        actions.gameDataChanged(this, gameData);
+    setGameData(gameData: any) {
+        this.gameData = Object.assign({}, this.gameData, gameData);
+        actions.gameDataChanged(this, this.gameData);
     }
 
     /**

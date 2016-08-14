@@ -91,9 +91,9 @@ export default class Game extends React.Component {
                             name={player.name}
                             isUser={player.id === user.id}
                             slots={game.gameData.numberOfDice}
-                            dice={game.gameData.score[player.id]}
-                            score={null}
-                            isWinner={false}
+                            dice={game.gameData.score[player.id] && game.gameData.score[player.id].dice}
+                            score={game.gameData.score[player.id] && game.gameData.score[player.id].value}
+                            isWinner={game.gameData.winners[player.id] === true}
                         />
                     ))}
                 </View>

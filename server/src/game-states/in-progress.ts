@@ -1,5 +1,5 @@
 import { GAME_STATE_WAITING, GAME_STATE_READY, CMD_ROLL_DICE } from '../constants';
-import { randomInRange } from '../util';
+import { rollDice } from '../util';
 import GameRoom, { Message } from '../game-room';
 import Player from '../player';
 import GameState from '../game-state';
@@ -17,14 +17,17 @@ export default class InProgressState extends GameState {
     }
 
     enterState() {
+        this.gameRoom.setGameData({
+            round: this.gameRoom.gameData.round + 1,
+            roundStarted: new Date().getTime(),
+            score: {},
+            winners: {}
+        });
         this.timerID = setTimeout(() => this.roundFinished(), this.roundDuration);
     }
 
     playerLeft(player: Player) {
-        const newGameData = Object.assign({}, this.gameRoom.gameData);
-        delete newGameData.score[player.id];
-        
-        this.gameRoom.setGameData(newGameData);
+        super.playerLeft(player);
 
         if (this.gameRoom.playerCount < 2) {
             clearTimeout(this.timerID);
@@ -41,10 +44,10 @@ export default class InProgressState extends GameState {
 
             // Make sure the player cannot roll twice
             if (!gameData.score[sender.id]) {
-                const newGameData = Object.assign({}, gameData);
-                newGameData.score[sender.id] = Array(newGameData.numberOfDice).fill(1).map(() => randomInRange(1, 6));
+                const score = Object.assign({}, gameData.score);
+                score[sender.id] = rollDice(gameData.numberOfDice);
 
-                this.gameRoom.setGameData(newGameData);
+                this.gameRoom.setGameData({ score });
                 this.checkForRoundEnd();
             }
         }
@@ -60,10 +63,20 @@ export default class InProgressState extends GameState {
         }
     }
 
-    /**
-     * Transition back to the READY state
-     */
+    determineTheWinners() {
+        const score = this.gameRoom.gameData.score;
+        const highestScore = Math.max.apply(null, Object.keys(score).map(id => score[id].value));
+        
+        let winners = {};
+        for (var playerId in score) {
+            winners[playerId] = score[playerId].value === highestScore;
+        }
+
+        this.gameRoom.setGameData({ winners });
+    }
+
     roundFinished() {
+        this.determineTheWinners();
         this.gameRoom.setState(GAME_STATE_READY);
     }
 

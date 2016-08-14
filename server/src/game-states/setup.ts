@@ -20,11 +20,7 @@ export default class SetupState extends GameState {
             const numberOfDice = parseInt(message.payload, 10);
             
             if (inRange(numberOfDice, 1, 4)) {
-                this.gameRoom.setGameData({
-                    round: 0,
-                    numberOfDice,
-                    score: { }
-                });
+                this.gameRoom.setGameData({ numberOfDice });
                 this.gameRoom.setState(GAME_STATE_WAITING);
             }
         }

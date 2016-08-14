@@ -11,6 +11,12 @@ import GameState from '../game-state';
 export default class WaitingState extends GameState {
 
     enterState() {
+        this.gameRoom.setGameData({
+            round: 0,
+            roundStarted: null,
+            score: {},
+            winners: {}
+        });
         this.checkIfEnoughPlayers();
     }
 

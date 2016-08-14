@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { inRange, randomInRange } from '../src/util';
+import { inRange, randomInRange, rollDice } from '../src/util';
 
 
 describe('util', function() {
@@ -28,6 +28,15 @@ describe('util', function() {
         testRange(1, 6);
         testRange(0, 10);
         testRange(-10, 10);
+    });
+
+
+    it('rollDice(numberOfDice)', function() {
+        const diceScore = rollDice(4);
+        expect(diceScore.dice.length).to.equal(4);
+        
+        const sum = diceScore.dice.reduce((sum, value) => sum + value, 0);
+        expect(diceScore.value).to.equal(sum);
     });
 
 });

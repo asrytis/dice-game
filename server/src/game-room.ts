@@ -19,13 +19,13 @@ export interface DiceScore {
 }
 
 export interface GameData {
-    round: number;
+    round?: number;
     roundStarted?: number;
-    numberOfDice: number;
-    score: {
+    numberOfDice?: number;
+    score?: {
         [playerId: number]: DiceScore
     };
-    winners: {
+    winners?: {
         [playerId: number]: boolean;
     }
 }
@@ -84,9 +84,9 @@ export default class GameRoom {
         }
     }
 
-    setGameData(gameData: any) {
-        this.gameData = Object.assign({}, this.gameData, gameData);
-        actions.gameDataChanged(this, this.gameData);
+    setGameData(changes: GameData) {
+        this.gameData = Object.assign({}, this.gameData, changes);
+        actions.gameDataChanged(this, changes);
     }
 
     /**

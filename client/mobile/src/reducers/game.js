@@ -45,7 +45,11 @@ export default createReducer(initialState, {
     [SV_GAME_DATA_CHANGED](state, action) {
         return {
             ...state,
-            ...action.payload
+            serverTime: action.payload.serverTime,
+            gameData: {
+                ...state.gameData,
+                ...action.payload.changes
+            }
         };
     }
 });

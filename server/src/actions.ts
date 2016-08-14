@@ -32,12 +32,12 @@ export function gameStateChanged(gameRoom: GameRoom, newState: string) {
     });
 }
 
-export function gameDataChanged(gameRoom: GameRoom, gameData: GameData) {
+export function gameDataChanged(gameRoom: GameRoom, changes: GameData) {
     gameRoom.broadcast({
         type: SV_GAME_DATA_CHANGED,
         payload: {
             serverTime: new Date().getTime(),
-            gameData
+            changes
         }
     });
 }

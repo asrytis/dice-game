@@ -13,6 +13,7 @@ import {
 import Background from '../components/background';
 import Button from '../components/button';
 import Player from '../components/player';
+import ProgressBar from '../components/progress-bar';
 import styles from '../styles/game';
 
 @connect(
@@ -42,11 +43,7 @@ export default class Game extends React.Component {
         return false;
     }
 
-    renderHeaderText() {
-        return <Text style={styles.text}>Waiting for more players to join ...</Text>;
-    }
-
-    renderHeaderProgress(game) {
+    renderHeader(game) {
         if (game.stateName === GAME_STATE_SETUP) {
             return <Text style={styles.text}>Waiting for other player to setup the game</Text>;
         }
@@ -63,16 +60,14 @@ export default class Game extends React.Component {
             <View style={styles.roundProgressContainer}>
                 <Text style={styles.text}>Round</Text>
                 <Text style={styles.title}>{game.gameData.round}</Text>
-                <View style={styles.progressBarContainer}>
-                    <View style={[styles.progressBar, { width: 70 }]}/>
-                </View>
+                { game.gameData.roundStarted && <ProgressBar duration={game.gameData.roundDuration} startTimestamp={game.gameData.roundStarted} currentTimestamp={game.serverTime} /> }
             </View>
         );
     }
 
     render() {
         const { player: user, game } = this.props;
-        const headerContent = this.renderHeaderProgress(game);
+        const header = this.renderHeader(game);
 
         return (
             <Background>
@@ -81,7 +76,7 @@ export default class Game extends React.Component {
                     <Button style={styles.navbarButtonRight} textStyle={styles.navbarButtonText} onPress={Actions.help}>Help</Button>
                 </View>
                 <View style={styles.header}>
-                    {headerContent}
+                    {header}
                 </View>
 
                 <View style={styles.playersContainer}>

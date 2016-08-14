@@ -43,15 +43,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    progressBarContainer: {
-        height: 4,
-        width: 220,
-        backgroundColor: color.dark2
-    },
-    progressBar: {
-        height: 4,
-        backgroundColor: color.light1
-    },
     text: styles.textBody,
     playersContainer: {
         alignSelf: 'stretch',

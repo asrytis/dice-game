@@ -43,7 +43,7 @@ export default class Player {
             return 'Anonymous ' + Math.round(Math.random() * 1000);
         }
 
-        return name;
+        return decodeURIComponent(name);
     }
 
 }

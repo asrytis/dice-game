@@ -15,8 +15,8 @@ describe('Player', function() {
     describe('extractName(url)', function() {
 
         it('should extract the player name from WebSocket URL', function() {
-            const name = Player.extractName('/somPath?John');
-            expect(name).to.equal('John');
+            expect(Player.extractName('/somPath?John')).to.equal('John');
+            expect(Player.extractName('/somPath?John%20doe')).to.equal('John doe');
         });
 
         it('should not exceed max length', function() {

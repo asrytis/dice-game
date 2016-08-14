@@ -13,10 +13,7 @@ export default class ProgressBar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            localStartTimestamp: new Date().getTime(),
-            elapsed: this.props.currentTimestamp - this.props.startTimestamp
-        };
+        this.state = this.getNewStateFromProps(this.props);
     }
 
     componentDidMount() {
@@ -28,19 +25,23 @@ export default class ProgressBar extends React.Component {
     }
 
     componentDidReceiveProps() {
-        this.setState({
-            localStartTimestamp: new Date().getTime(),
-            elapsed: this.props.currentTimestamp - this.props.startTimestamp
-        });
+        this.setState(this.getNewStateFromProps(this.props));
     }
 
     componentWillUnmount() {
         clearInterval(this.timerId);
     }
 
+    getNewStateFromProps(props) {
+        return {
+            localStartTimestamp: new Date().getTime(),
+            elapsed: props.currentTimestamp - props.startTimestamp
+        }
+    }
+
     render() {
         const width = containerWidth * this.state.elapsed / this.props.duration;
-        
+
         return (
             <View style={styles.container}>
                 <View style={[styles.bar, { width }]} />

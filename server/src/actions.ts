@@ -20,7 +20,7 @@ export function playerJoined(gameRoom: GameRoom, player: Player) {
 
 export function playerLeft(gameRoom: GameRoom, player: Player) {
     gameRoom.broadcast({
-        type: SV_PLAYER_JOINED,
+        type: SV_PLAYER_LEFT,
         payload: player.serialize()
     }, player);
 }

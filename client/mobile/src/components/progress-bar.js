@@ -19,7 +19,7 @@ export default class ProgressBar extends React.Component {
         this.startAnimation();
     }
 
-    componentDidReceiveProps() {
+    componentDidUpdate() {
         this.startAnimation();
     }
 

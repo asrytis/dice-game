@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { color, styles, borderRadius } from './shared';
 
+export const winnerColor = {
+    start: 'rgba(255, 255, 255, 0)',
+    end: 'rgba(255, 255, 255, 0.24)'
+};
 
 export default StyleSheet.create({
     container: {
@@ -42,8 +46,5 @@ export default StyleSheet.create({
     },
     dice: {
         marginLeft: 4
-    },
-    winner: {
-        backgroundColor: 'rgba(255, 255, 255, 0.24)'
     }
 });

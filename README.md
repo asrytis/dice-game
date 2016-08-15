@@ -1,6 +1,6 @@
 # Multiplayer dice game
 
-<img src="https://github.com/asrytis/dice-game/blob/master/design/Game - in progress.png" align="right">
+<img src="https://github.com/asrytis/dice-game/blob/master/docs/images/gameplay.png" align="right">
 
 Hey there! This is my first public repo and a playground for React Native. I didn't want to litter the net with yet another Todo List app and decided to go with a simple game instead.
 

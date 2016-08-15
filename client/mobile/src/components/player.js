@@ -1,8 +1,9 @@
 import React from 'React';
 import { View, Text, Image } from 'react-native';
 import styles from '../styles/player';
+import Dice from './dice';
 
-const dice = [
+const diceImages = [
     require('../assets/images/dice/1.png'),
     require('../assets/images/dice/2.png'),
     require('../assets/images/dice/3.png'),
@@ -27,7 +28,7 @@ export default class Player extends React.Component {
     }
 
     renderDice(score) {
-        return score.map((value, index) => <Image key={index} source={dice[value-1]} style={styles.dice} />);
+        return score.map((value, index) => <Dice key={index} source={diceImages[value-1]} style={styles.dice} />);
     }
 
     render() {

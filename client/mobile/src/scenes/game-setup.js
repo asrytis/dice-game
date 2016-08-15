@@ -12,7 +12,6 @@ export default class GameSetup extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             isConnecting: false
         };

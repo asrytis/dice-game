@@ -1,6 +1,6 @@
 import React from 'React';
 import { View, Animated, Easing } from 'react-native';
-import styles, { containerWidth } from '../styles/progress-bar';
+import styles, { containerWidth, color } from '../styles/progress-bar';
 
 export default class ProgressBar extends React.Component {
 
@@ -12,10 +12,7 @@ export default class ProgressBar extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            progress: new Animated.Value(0)
-        };
+        this.progress = new Animated.Value(0);
     }
 
     componentDidMount() {
@@ -30,9 +27,9 @@ export default class ProgressBar extends React.Component {
         const progress = (this.props.currentTimestamp - this.props.startTimestamp) / this.props.duration;
         const timeLeft = (1 - progress) * this.props.duration;
 
-        this.state.progress.setValue(progress);
+        this.progress.setValue(progress);
 
-        Animated.timing(this.state.progress, {
+        Animated.timing(this.progress, {
             duration: timeLeft,
             easing: Easing.linear,
             toValue: 1
@@ -40,7 +37,7 @@ export default class ProgressBar extends React.Component {
     }
 
     render() {
-        const width = this.state.progress.interpolate({
+        const width = this.progress.interpolate({
             inputRange: [0, 1],
             outputRange: [0, containerWidth]
         });

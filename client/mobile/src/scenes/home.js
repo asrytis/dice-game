@@ -8,6 +8,7 @@ import { color } from '../styles/shared';
 import styles from '../styles/home';
 import Background from '../components/background';
 import Button from '../components/button';
+import { Text as AnimatedText } from 'react-native-animatable';
 
 @connect(
     ({ routes, playersOnline, ws, player }) => ({ routes, playersOnline, ws, player }),
@@ -20,11 +21,15 @@ export default class Home extends React.Component {
         this.props.wsConnect(`ws://localhost:3000/ws?${this.props.player.name}`);
     }
 
+    renderAnimatedText(style, text) {
+        return text && <AnimatedText animation="fadeIn" duration={300} style={style}>{text}</AnimatedText>;
+    }
+
     render() {
         const { playersOnline, ws, player, playerSetName } = this.props;
         const feedbackText = ws.isConnecting ? 'Connecting ...' : ws.error;
         const playersOnlineText = playersOnline.error || `${playersOnline.value} players online`;
-        
+
         return (
             <Background>
                 <Text style={styles.title}>Dice game</Text>
@@ -41,8 +46,8 @@ export default class Home extends React.Component {
                     />
                     <Button style={styles.button} disabled={ws.isConnecting} onPress={this.onSubmit}>GO</Button>
                 </View>
-                <Text style={styles.feedbackText}>{feedbackText}</Text>
-                <Text style={styles.playersOnline}>{playersOnlineText}</Text>
+                {this.renderAnimatedText(styles.feedbackText, feedbackText)}
+                {this.renderAnimatedText(styles.playersOnline, playersOnlineText)}
             </Background>
         );
     }

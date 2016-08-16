@@ -1,11 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { color, styles, borderRadius } from './shared';
 
-export const winnerColor = {
-    start: 'rgba(255, 255, 255, 0)',
-    end: 'rgba(255, 255, 255, 0.24)'
-};
-
 export default StyleSheet.create({
     container: {
         height: 40,
@@ -15,7 +10,8 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         borderRadius: borderRadius.small,
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        overflow: 'hidden'
     },
     containerLeft: {
         flex: 1,
@@ -46,5 +42,13 @@ export default StyleSheet.create({
     },
     dice: {
         marginLeft: 4
+    },
+    winnerBackground: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.24)'
     }
 });

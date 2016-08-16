@@ -1,5 +1,6 @@
 import React from 'React';
-import { View, Text, Image, Animated, Easing } from 'react-native';
+import { View, Text, Image } from 'react-native';
+import { View as AnimatedView } from 'react-native-animatable';
 import styles, { winnerColor } from '../styles/player';
 import Dice from './dice';
 
@@ -13,33 +14,6 @@ export default class Player extends React.Component {
         slots: React.PropTypes.number,
         isWinner: React.PropTypes.bool.isRequired
     };
-
-    constructor(props) {
-        super(props);
-        this.backgroundAnimation = new Animated.Value(0);
-    }
-
-    componentDidMount() {
-        this.startAnimation();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.isWinner !== this.props.isWinner) {
-            this.backgroundAnimation.setValue(0);
-            this.startAnimation();
-        }
-    }
-
-    startAnimation() {
-        if (this.props.isWinner) {
-            Animated.timing(this.backgroundAnimation, {
-                toValue: 1,
-                duration: 200,
-                easing: Easing.inOut(Easing.ease),
-                delay: 200
-            }).start();
-        }
-    }
 
     renderSlots(length) {
         return Array(length).fill(1).map((value, index) => {
@@ -56,13 +30,10 @@ export default class Player extends React.Component {
     render() {
         const { name, isUser, dice, score, slots, isWinner } = this.props;
         let content = dice ? this.renderDice(dice) : slots > 0 ? this.renderSlots(slots) : null;
-        const backgroundColor = this.backgroundAnimation.interpolate({
-            inputRange: [0, 1],
-            outputRange: [winnerColor.start, winnerColor.end]
-        });
 
         return (
-            <Animated.View style={[styles.container, { backgroundColor }]}>
+            <View style={styles.container}>
+                {isWinner && <AnimatedView animation="flash" style={styles.winnerBackground} />}
                 <View style={styles.containerLeft}>
                     <Text style={styles.name}>{name} {isUser ? '(me)' : ''}</Text>
                 </View>
@@ -72,7 +43,7 @@ export default class Player extends React.Component {
                         {content}
                     </View>
                 </View>
-            </Animated.View>
+            </View>
         );
     }
 

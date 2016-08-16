@@ -1,6 +1,6 @@
 import React from 'React';
 import { View, Text, Image } from 'react-native';
-import { View as AnimatedView } from 'react-native-animatable';
+import { View as AnimatedView, Text as AnimatedText } from 'react-native-animatable';
 import styles, { winnerColor } from '../styles/player';
 import Dice from './dice';
 
@@ -29,21 +29,19 @@ export default class Player extends React.Component {
 
     render() {
         const { name, isUser, dice, score, slots, isWinner } = this.props;
-        let content = dice ? this.renderDice(dice) : slots > 0 ? this.renderSlots(slots) : null;
+        let diceOrSlots = dice ? this.renderDice(dice) : slots > 0 ? this.renderSlots(slots) : null;
 
         return (
-            <View style={styles.container}>
+            <AnimatedView animation="fadeIn" duration={300} style={styles.container}>
                 {isWinner && <AnimatedView animation="flash" style={styles.winnerBackground} />}
                 <View style={styles.containerLeft}>
                     <Text style={styles.name}>{name} {isUser ? '(me)' : ''}</Text>
                 </View>
                 <View style={styles.containerRight}>
-                    <Text style={[styles.score, { opacity: this.scoreAnimation }]}>{score}</Text>
-                    <View style={styles.diceContainer}>
-                        {content}
-                    </View>
+                    {score && <AnimatedText animation="fadeIn" duration={300} delay={500} style={styles.score}>{score}</AnimatedText>}
+                    {diceOrSlots}
                 </View>
-            </View>
+            </AnimatedView>
         );
     }
 

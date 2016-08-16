@@ -26,12 +26,9 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     name: styles.textBody,
-    score: styles.textBody,
-    diceContainer: {
-        width: 108,
-        marginLeft: 15,
-        flexDirection: 'row',
-        justifyContent: 'flex-end'
+    score: {
+        ...styles.textBody,
+        marginRight: 15
     },
     dicePlaceholder: {
         width: 24,

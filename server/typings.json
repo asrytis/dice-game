@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "chai": "registry:npm/chai#3.5.0+20160723033700",
-    "chai-spies": "registry:npm/chai-spies#0.7.1+20160614064916"
+    "chai-spies": "registry:npm/chai-spies#0.7.1+20160614064916",
+    "node-uuid": "registry:npm/node-uuid#1.4.7+20160723033700"
   }
 }

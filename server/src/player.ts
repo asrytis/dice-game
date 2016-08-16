@@ -1,4 +1,4 @@
-let PLAYER_ID: number = 0;
+import { v4 } from 'node-uuid';
 
 export interface PlayerOptions {
     ws: any,
@@ -6,19 +6,19 @@ export interface PlayerOptions {
 }
 
 export interface PlayerSerialized {
-    id: number,
+    id: string,
     name: string
 }
 
 export default class Player {
 
-    public id: number;
+    public id: string;
     public ws: any;
     public name: string;
     public room: any;
 
     constructor(options: PlayerOptions) {
-        this.id = ++PLAYER_ID;
+        this.id = v4();
         this.ws = options.ws;
         this.name = options.name;
     }

@@ -3,7 +3,7 @@ import { Image, StatusBar, View, StyleSheet } from 'react-native';
 
 export default function Background(props) {
     return (
-        <View>
+        <View style={styles.container}>
             <StatusBar barStyle="light-content" />
             <Image source={require('../assets/images/background.png')} style={styles.backgroundImage}>
                 <View style={styles.childrenContainer}>
@@ -15,9 +15,14 @@ export default function Background(props) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
     backgroundImage: {
         flex: 1,
-        alignItems: 'stretch'
+        resizeMode: Image.resizeMode.stretch,
+        width: null,
+        height: null
     },
     childrenContainer: {
         flex: 1,

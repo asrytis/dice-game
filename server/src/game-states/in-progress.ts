@@ -6,7 +6,7 @@ import GameState from '../game-state';
 
 
 /**
- * First player to roll the dice triggers a new round
+ * Players must roll the dice before the clock runs out
  */
 export default class InProgressState extends GameState {
 

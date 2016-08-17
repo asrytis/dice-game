@@ -94,7 +94,7 @@ To keep things simple all the communication is done in JSON. Both incoming and o
 #### Server sent messages
 
 #### SV_GAME_STATE
-Once joined, the player receives full game state along with a unique player ID. See typescript definition of [gameRoom](https://github.com/asrytis/dice-game/blob/master/server/src/game-room.ts#L35) and [gameData interface](https://github.com/asrytis/dice-game/blob/master/server/src/game-room.ts#L22) in source.
+Once joined, the player receives full game state along with a unique player ID. See typescript definition of [gameRoom](https://github.com/asrytis/dice-game/blob/master/server/src/game-room.ts#L35) and [gameData interface](https://github.com/asrytis/dice-game/blob/master/server/src/game-room.ts#L22) in source code.
 
 ```json
 {

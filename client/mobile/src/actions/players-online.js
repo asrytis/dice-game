@@ -1,3 +1,5 @@
+import { API_HTTP_PATH } from '../config';
+
 export const PLAYERS_REQUEST = 'PLAYERS_ONLINE_REQUEST';
 export const PLAYERS_REQUEST_SUCCESS = 'PLAYERS_ONLINE_REQUEST_SUCCESS';
 export const PLAYERS_REQUEST_FAILURE = 'PLAYERS_ONLINE_REQUEST_FAILURE';
@@ -15,7 +17,7 @@ const playersRequestFailure = error => ({
 export const fetchPlayers = () => (dispatch) => {
     dispatch(playersRequest());
 
-    return fetch('http://localhost:3000/api/player-count')
+    return fetch(`${API_HTTP_PATH}/player-count`)
         .then(response => response.json())
         .then(json => dispatch(playersRequestSuccess(json.playerCount)))
         .catch(error => dispatch(playersRequestFailure(error.message)));

@@ -9,6 +9,7 @@ import { color } from '../styles/shared';
 import styles from '../styles/home';
 import Background from '../components/background';
 import Button from '../components/button';
+import { API_WS_PATH } from '../config';
 
 const separatorLineImage = require('../assets/images/separator-line.png');
 
@@ -20,7 +21,7 @@ export default class Home extends React.Component {
 
     @autobind
     onSubmit() {
-        this.props.wsConnect(`ws://localhost:3000/ws?${this.props.player.name}`);
+        this.props.wsConnect(`${API_WS_PATH}?${this.props.player.name}`);
     }
 
     renderAnimatedText(style, text) {

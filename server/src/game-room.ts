@@ -63,7 +63,7 @@ export default class GameRoom {
             round: 0,
             roundDuration: options.roundDuration,
             roundStarted: null,
-            numberOfDice: 4,
+            numberOfDice: 0,
             score: {},
             winners: {}
         };

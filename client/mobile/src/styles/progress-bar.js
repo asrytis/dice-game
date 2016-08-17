@@ -7,10 +7,10 @@ export default StyleSheet.create({
     container: {
         height: 4,
         width: containerWidth,
-        backgroundColor: color.dark2
+        backgroundColor: color.dark2,
     },
     bar: {
         height: 4,
-        backgroundColor: color.light1
-    }
+        backgroundColor: color.light1,
+    },
 });

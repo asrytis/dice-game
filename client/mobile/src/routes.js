@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { color } from './styles/shared';
@@ -19,7 +19,7 @@ const RouterWithRedux = connect()(Router);
 export default function Routes() {
     return (
         <RouterWithRedux sceneStyle={{ backgroundColor: color.background }}>
-            <Scene key="root" hideNavBar={true}>
+            <Scene key="root" hideNavBar>
                 <Scene key="home" component={Home} onEnter={homeOnEnter} />
                 <Scene key="game-setup" component={GameSetup} />
                 <Scene key="game" component={Game} />

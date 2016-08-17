@@ -13,10 +13,10 @@ export default class GameSetup extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isConnecting: false
+            isConnecting: false,
         };
     }
-    
+
     onOptionSelect(index) {
         this.props.cmdSetDice(index + 1);
         this.setState({ isConnecting: true });
@@ -24,20 +24,35 @@ export default class GameSetup extends React.Component {
 
     render() {
         const { isConnecting } = this.state;
-        const options = ['1 DICE', '2 DICE', '3 DICE', '4 DICE'];
         const feedbackText = isConnecting ? 'Connecting ...' : '';
+        const options = ['1 DICE', '2 DICE', '3 DICE', '4 DICE'];
+        const buttonGroupStyle = [
+            styles.buttonGroup,
+            this.state.isConnecting ? styles.disabled : null,
+        ];
 
         return (
             <Background>
                 <View style={styles.navbar}>
-                    <Button style={styles.navbarButton} textStyle={styles.navbarButtonText} onPress={() => Actions.popTo('home')}>&lt; Home</Button>
+                    <Button
+                        style={styles.navbarButton}
+                        textStyle={styles.navbarButtonText}
+                        onPress={() => Actions.popTo('home')}
+                    >&lt; Home</Button>
                 </View>
                 <Text style={styles.title}>Game setup</Text>
-                <Text style={styles.instructions}>You’re the first player to join the table!
-Please select the number of dice to roll:</Text>
-                <View style={[styles.buttonGroup, this.state.isConnecting ? styles.disabled : null]}>
+                <Text style={styles.instructions}>
+                    You’re the first player to join the table!
+                    Please select the number of dice to roll:
+                </Text>
+                <View style={buttonGroupStyle}>
                     {options.map((label, index) => (
-                        <Button key={index} style={styles.button} disabled={isConnecting} onPress={() => this.onOptionSelect(index)}>{label}</Button>
+                        <Button
+                            key={index}
+                            style={styles.button}
+                            disabled={isConnecting}
+                            onPress={() => this.onOptionSelect(index)}
+                        >{label}</Button>
                     ))}
                 </View>
                 <Text style={styles.feedbackText}>{feedbackText}</Text>
@@ -45,3 +60,7 @@ Please select the number of dice to roll:</Text>
         );
     }
 }
+
+GameSetup.propTypes = {
+    cmdSetDice: React.PropTypes.func,
+};

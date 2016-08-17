@@ -4,38 +4,38 @@ import { WS_CONNECT, WS_CONNECTED, WS_DISCONNECTED, WS_ERROR } from '../actions/
 const initialState = {
     isConnected: false,
     isConnecting: false,
-    error: null
+    error: null,
 };
 
 export default createReducer(initialState, {
-    [WS_CONNECT](state, action) {
+    [WS_CONNECT](state) {
         return {
             ...state,
             isConnecting: true,
-            error: null
+            error: null,
         };
     },
 
-    [WS_CONNECTED](state, action) {
+    [WS_CONNECTED](state) {
         return {
             ...state,
             isConnected: true,
-            isConnecting: false
+            isConnecting: false,
         };
     },
 
     [WS_ERROR](state, action) {
         return {
             ...state,
-            error: action.payload
+            error: action.payload,
         };
     },
 
-    [WS_DISCONNECTED](state, action) {
+    [WS_DISCONNECTED](state) {
         return {
             ...state,
             isConnecting: false,
-            isConnected: false
+            isConnected: false,
         };
-    }
+    },
 });

@@ -2,7 +2,7 @@ import { createReducer } from 'redux-create-reducer';
 import { ActionConst } from 'react-native-router-flux';
 
 const initialState = {
-    scene: {}
+    scene: {},
 };
 
 export default createReducer(initialState, {
@@ -12,5 +12,5 @@ export default createReducer(initialState, {
             ...state,
             scene: action.scene,
         };
-    }
+    },
 });

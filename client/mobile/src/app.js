@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
@@ -10,15 +10,19 @@ import reducers from './reducers/index';
 import Routes from './routes';
 
 
-const middleware = [thunkMiddleware, sceneOnEnterMiddleware, wsMiddleware, serverActionsMiddleware, screenTransitionsMiddleware];
+const middleware = [
+    thunkMiddleware,
+    sceneOnEnterMiddleware,
+    wsMiddleware,
+    serverActionsMiddleware,
+    screenTransitionsMiddleware,
+];
 const store = compose(applyMiddleware(...middleware))(createStore)(reducers);
 
-export default class App extends React.Component {
-    render() {
-        return (
-            <Provider store={store}>
-                <Routes/>
-            </Provider>
-        );
-    }
-};
+export default function App() {
+    return (
+        <Provider store={store}>
+            <Routes />
+        </Provider>
+    );
+}

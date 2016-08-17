@@ -8,7 +8,7 @@ import {
     GAME_STATE_SETUP,
     GAME_STATE_WAITING,
     GAME_STATE_READY,
-    GAME_STATE_IN_PROGRESS
+    GAME_STATE_IN_PROGRESS,
 } from '../actions/game';
 import Background from '../components/background';
 import Button from '../components/button';
@@ -29,7 +29,7 @@ export default class Game extends React.Component {
 
     isButtonDisabled() {
         const { player, game } = this.props;
-        
+
         // Round not started yet
         if ([GAME_STATE_SETUP, GAME_STATE_WAITING].includes(game.stateName)) {
             return true;
@@ -53,50 +53,79 @@ export default class Game extends React.Component {
         }
 
         if (game.stateName === GAME_STATE_READY) {
-            return <Text style={styles.text}>Roll the dice to start the round</Text>
+            return <Text style={styles.text}>Roll the dice to start the round</Text>;
+        }
+
+        let progressBar;
+        if (game.gameData.roundStarted) {
+            progressBar = (
+                <ProgressBar
+                    duration={game.gameData.roundDuration}
+                    startTimestamp={game.gameData.roundStarted}
+                    currentTimestamp={game.serverTime}
+                />
+            );
         }
 
         return (
             <View style={styles.roundProgressContainer}>
                 <Text style={styles.text}>Round</Text>
                 <Text style={styles.title}>{game.gameData.round}</Text>
-                { game.gameData.roundStarted && <ProgressBar duration={game.gameData.roundDuration} startTimestamp={game.gameData.roundStarted} currentTimestamp={game.serverTime} /> }
+                {progressBar}
             </View>
         );
     }
 
     render() {
         const { player: user, game } = this.props;
+        const { gameData } = game;
         const header = this.renderHeader(game);
 
         return (
             <Background>
                 <View style={styles.navbar}>
-                    <Button style={styles.navbarButton} textStyle={styles.navbarButtonText} onPress={() => Actions.popTo('home')}>&lt; Home</Button>
-                    <Button style={styles.navbarButtonRight} textStyle={styles.navbarButtonText} onPress={Actions.help}>Help</Button>
+                    <Button
+                        style={styles.navbarButton}
+                        textStyle={styles.navbarButtonText}
+                        onPress={() => Actions.popTo('home')}
+                    >&lt; Home</Button>
+                    <Button
+                        style={styles.navbarButtonRight}
+                        textStyle={styles.navbarButtonText}
+                        onPress={Actions.help}
+                    >Help</Button>
                 </View>
                 <View style={styles.header}>
                     {header}
                 </View>
-
                 <View style={styles.playersContainer}>
                     {game.players.map(player => (
                         <Player
                             key={player.id}
                             name={player.name}
                             isUser={player.id === user.id}
-                            slots={game.gameData.numberOfDice}
-                            dice={game.gameData.score[player.id] && game.gameData.score[player.id].dice}
-                            score={game.gameData.score[player.id] && game.gameData.score[player.id].value}
+                            slots={gameData.numberOfDice}
+                            dice={gameData.score[player.id] && gameData.score[player.id].dice}
+                            score={gameData.score[player.id] && gameData.score[player.id].value}
                             isWinner={game.gameData.winners[player.id] === true}
                         />
                     ))}
                 </View>
-
                 <View style={styles.buttonContainer}>
-                    <Button style={styles.button} textStyle={styles.buttonText} disabled={this.isButtonDisabled()} onPress={this.rollDice}>ROLL THE DICE</Button>
+                    <Button
+                        style={styles.button}
+                        textStyle={styles.buttonText}
+                        disabled={this.isButtonDisabled()}
+                        onPress={this.rollDice}
+                    >ROLL THE DICE</Button>
                 </View>
             </Background>
         );
     }
 }
+
+Game.propTypes = {
+    cmdRollDice: React.PropTypes.func,
+    game: React.PropTypes.object,
+    player: React.PropTypes.object,
+};

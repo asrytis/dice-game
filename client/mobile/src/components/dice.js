@@ -1,6 +1,7 @@
-import React from 'React';
-import { Image, Animated } from 'react-native';
+import React from 'react';
+import { Animated } from 'react-native';
 
+/* eslint-disable */
 const images = [
     require('../assets/images/dice/1.png'),
     require('../assets/images/dice/2.png'),
@@ -9,12 +10,9 @@ const images = [
     require('../assets/images/dice/5.png'),
     require('../assets/images/dice/6.png')
 ];
+/* eslint-enable */
 
 export default class Dice extends React.Component {
-
-    static propTypes = {
-        value: React.PropTypes.number.isRequired
-    };
 
     constructor(props) {
         super(props);
@@ -27,16 +25,24 @@ export default class Dice extends React.Component {
         Animated.spring(this.bounceValue, {
             toValue: 1,
             friction: 3,
-            tension: 80
+            tension: 80,
         }).start();
     }
 
     render() {
-        const style = { transform: [{ scale: this.bounceValue }] };
-        
+        const style = [
+            this.props.style,
+            { transform: [{ scale: this.bounceValue }] },
+        ];
+
         return (
-            <Animated.Image source={images[this.props.value - 1]} style={[this.props.style, style]} />
+            <Animated.Image source={images[this.props.value - 1]} style={style} />
         );
     }
 
 }
+
+Dice.propTypes = {
+    value: React.PropTypes.number.isRequired,
+    style: Animated.Image.propTypes.style,
+};

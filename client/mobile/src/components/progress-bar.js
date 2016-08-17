@@ -1,14 +1,8 @@
-import React from 'React';
+import React from 'react';
 import { View, Animated, Easing } from 'react-native';
-import styles, { containerWidth, color } from '../styles/progress-bar';
+import styles, { containerWidth } from '../styles/progress-bar';
 
 export default class ProgressBar extends React.Component {
-
-    static propTypes = {
-        duration: React.PropTypes.number.isRequired,
-        startTimestamp: React.PropTypes.number.isRequired,
-        currentTimestamp: React.PropTypes.number.isRequired
-    };
 
     constructor(props) {
         super(props);
@@ -24,22 +18,23 @@ export default class ProgressBar extends React.Component {
     }
 
     startAnimation() {
-        const progress = (this.props.currentTimestamp - this.props.startTimestamp) / this.props.duration;
-        const timeLeft = (1 - progress) * this.props.duration;
+        const { currentTimestamp, startTimestamp, duration } = this.props;
+        const progress = (currentTimestamp - startTimestamp) / duration;
+        const timeLeft = (1 - progress) * duration;
 
         this.progress.setValue(progress);
 
         Animated.timing(this.progress, {
             duration: timeLeft,
             easing: Easing.linear,
-            toValue: 1
+            toValue: 1,
         }).start();
     }
 
     render() {
         const width = this.progress.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, containerWidth]
+            outputRange: [0, containerWidth],
         });
 
         return (
@@ -50,3 +45,9 @@ export default class ProgressBar extends React.Component {
     }
 
 }
+
+ProgressBar.propTypes = {
+    duration: React.PropTypes.number.isRequired,
+    startTimestamp: React.PropTypes.number.isRequired,
+    currentTimestamp: React.PropTypes.number.isRequired,
+};

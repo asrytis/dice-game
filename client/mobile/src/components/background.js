@@ -1,33 +1,22 @@
 import React from 'react';
-import { Image, StatusBar, View, StyleSheet } from 'react-native';
+import { Image, StatusBar, View } from 'react-native';
+import styles from '../styles/background';
 
-export default function Background(props) {
-    return (
-        <View style={styles.container}>
-            <StatusBar barStyle="light-content" />
-            <Image source={require('../assets/images/background.png')} style={styles.backgroundImage}>
-                <View style={styles.childrenContainer}>
-                    {props.children}
-                </View>
-            </Image>
-        </View>
-    );
-}
+const image = require('../assets/images/background.png');
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: Image.resizeMode.stretch,
-        width: null,
-        height: null
-    },
-    childrenContainer: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        backgroundColor: 'transparent'
-    }
-});
+const Background = (props) => (
+    <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
+        <Image source={image} style={styles.backgroundImage}>
+            <View style={styles.childrenContainer}>
+                {props.children}
+            </View>
+        </Image>
+    </View>
+);
+
+Background.propTypes = {
+    children: React.PropTypes.node,
+};
+
+export default Background;

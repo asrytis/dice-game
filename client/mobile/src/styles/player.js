@@ -11,34 +11,34 @@ export default StyleSheet.create({
         alignItems: 'center',
         borderRadius: borderRadius.small,
         backgroundColor: 'transparent',
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     containerLeft: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     containerRight: {
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     name: styles.textBody,
     score: {
         ...styles.textBody,
-        marginRight: 15
+        marginRight: 15,
     },
     dicePlaceholder: {
         width: 24,
         height: 24,
         marginLeft: 4,
         borderRadius: borderRadius.tiny,
-        backgroundColor: color.dark3
+        backgroundColor: color.dark3,
     },
     dice: {
-        marginLeft: 4
+        marginLeft: 4,
     },
     winnerBackground: {
         position: 'absolute',
@@ -46,6 +46,6 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.24)'
-    }
+        backgroundColor: 'rgba(255, 255, 255, 0.24)',
+    },
 });

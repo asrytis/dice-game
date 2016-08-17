@@ -10,5 +10,5 @@ export default combineReducers({
     playersOnline,
     ws,
     player,
-    game
+    game,
 });

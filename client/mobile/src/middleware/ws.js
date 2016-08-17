@@ -5,7 +5,7 @@ import {
     wsConnected,
     wsDisconnected,
     wsMessage,
-    wsError
+    wsError,
 } from '../actions/ws.js';
 
 let ws;
@@ -13,21 +13,27 @@ let ws;
 const wsMiddleware = store => next => action => {
     switch (action.type) {
         case WS_CONNECT:
-            ws && ws.close();
+            if (ws) ws.close();
             ws = new WebSocket(action.payload);
             ws.onopen = () => store.dispatch(wsConnected());
             ws.onmessage = ({ data }) => store.dispatch(wsMessage(JSON.parse(data)));
             ws.onerror = ({ message }) => store.dispatch(wsError(message));
             ws.onclose = () => store.dispatch(wsDisconnected());
-        break;
+            break;
+
         case WS_SEND_MESSAGE:
-            ws && ws.send(JSON.stringify(action.payload));
-        break;
+            if (ws) ws.send(JSON.stringify(action.payload));
+            break;
+
         case WS_DISCONNECT:
-            ws && ws.close();
+            if (ws) ws.close();
             ws = null;
-        break;
+            break;
+
+        default:
+            return next(action);
     }
+
     return next(action);
 };
 

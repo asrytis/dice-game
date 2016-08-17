@@ -1,41 +1,40 @@
 import { StyleSheet } from 'react-native';
 import { color, fontSize, fontWeight, borderRadius, styles } from './shared';
 
-
 export default StyleSheet.create({
     disabled: styles.disabled,
     title: {
         ...styles.textTitle,
-        marginTop: 109
+        marginTop: 109,
     },
     separatorLine: {
-        marginTop: 18
+        marginTop: 18,
     },
     textInputContainer: {
         width: 240,
         height: 47,
         marginTop: 54,
         borderRadius: borderRadius.normal,
-        backgroundColor: color.dark2
+        backgroundColor: color.dark2,
     },
     textInput: {
         ...styles.textBody,
         paddingLeft: 24,
         paddingRight: 88,
         paddingTop: 3,
-        height: 47
+        height: 47,
     },
     button: {
         ...styles.button,
         position: 'absolute',
         top: 1,
-        right: 1
+        right: 1,
     },
     feedbackText: {
         ...styles.textBody,
         width: 240,
         marginTop: 20,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     playersOnline: {
         position: 'absolute',
@@ -45,6 +44,6 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontSize: fontSize.normal,
         fontWeight: fontWeight.thin,
-        color: color.light1
-    }
+        color: color.light1,
+    },
 });

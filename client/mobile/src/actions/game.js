@@ -1,5 +1,4 @@
 import { wsSendMessage } from './ws';
-import { Actions } from 'react-native-router-flux';
 
 export const GAME_STATE_SETUP = 'GAME_STATE_SETUP';
 export const GAME_STATE_WAITING = 'GAME_STATE_WAITING';

@@ -1,18 +1,22 @@
 import { createReducer } from 'redux-create-reducer';
-import { PLAYERS_REQUEST, PLAYERS_REQUEST_SUCCESS, PLAYERS_REQUEST_FAILURE } from '../actions/players-online';
+import {
+    PLAYERS_REQUEST,
+    PLAYERS_REQUEST_SUCCESS,
+    PLAYERS_REQUEST_FAILURE,
+} from '../actions/players-online';
 
 const initialState = {
     isFetching: false,
     error: null,
-    value: 0
+    value: 0,
 };
 
 export default createReducer(initialState, {
-    [PLAYERS_REQUEST](state, action) {
+    [PLAYERS_REQUEST](state) {
         return {
             ...state,
             error: null,
-            isFetching: true
+            isFetching: true,
         };
     },
 
@@ -20,7 +24,7 @@ export default createReducer(initialState, {
         return {
             ...state,
             isFetching: false,
-            value: action.payload
+            value: action.payload,
         };
     },
 
@@ -28,7 +32,7 @@ export default createReducer(initialState, {
         return {
             ...state,
             isFetching: false,
-            error: action.payload
+            error: action.payload,
         };
-    }
+    },
 });

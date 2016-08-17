@@ -8,8 +8,8 @@ const sceneOnEnterMiddleware = ({ dispatch, getState }) => next => action => {
     const result = next(action);
 
     if (action.type === ActionConst.FOCUS) {
-        const onEnter = action.scene.onEnter
-        
+        const onEnter = action.scene.onEnter;
+
         if (typeof onEnter === 'function') {
             onEnter(dispatch, getState);
         }

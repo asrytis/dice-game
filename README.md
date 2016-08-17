@@ -19,16 +19,16 @@ Developing a dice game was actually a programming task for a tech startup. The f
  
 Instead of hacking something together in a few hours I decided to walk that extra mile and do a proper graphical design + go with React Native instead of building a Web App.
 
-## Server installation
+## Installation
+
+Type the following in terminal to install & run the server:
 
 ```
 cd server
 npm install && npm run start
 ```
 
-## Client installation
-
-Make sure you have React Native CLI installed:
+To run the client, make sure you have React Native CLI installed:
 ```
 npm install -g react-native-cli
 ```
@@ -93,7 +93,7 @@ To keep things simple all the communication is done in JSON. Both incoming and o
 
 #### Server sent messages
 
-##### SV_GAME_STATE
+#### SV_GAME_STATE
 Once joined, the player receives full game state along with a unique player ID. See typescript definition of [gameRoom](https://github.com/asrytis/dice-game/blob/master/server/src/game-room.ts#L35) and [gameData interface](https://github.com/asrytis/dice-game/blob/master/server/src/game-room.ts#L22) in source.
 
 ```json
@@ -125,7 +125,7 @@ Once joined, the player receives full game state along with a unique player ID. 
 }
 ```
 
-##### SV_PLAYER_JOINED
+#### SV_PLAYER_JOINED
 New player has joined the game room.
 ```json
 {
@@ -137,7 +137,7 @@ New player has joined the game room.
 }
 ```
 
-##### SV_PLAYER_LEFT
+#### SV_PLAYER_LEFT
 Player has left the game room.
 ```json
 {
@@ -149,7 +149,7 @@ Player has left the game room.
 }
 ```
 
-##### SV_GAME_STATE_CHANGED
+#### SV_GAME_STATE_CHANGED
 Game state has changed. See the list of all game states below.
 ```json
 {
@@ -158,7 +158,7 @@ Game state has changed. See the list of all game states below.
 }
 ```
 
-##### SV_GAME_DATA_CHANGED
+#### SV_GAME_DATA_CHANGED
 You will receive this notification everytime game data changes. Current server timestamp will be included along with the data that changed (not necessarily be the full gameData object!). See response example of SV_GAME_STATE for a full list of gameData properties.
 ```json
 {
@@ -175,9 +175,9 @@ You will receive this notification everytime game data changes. Current server t
 }
 ```
 
-#### Client sent messages
+### Client sent messages
 
-##### CMD_SET_DICE
+#### CMD_SET_DICE
 The first player to join a room will have to choose the number of dice to play with. An integer between 1 and 4 is expected. The server will only process the command if the game is in GAME_STATE_SETUP state and sender is the first player on the room players list.
 ```json
 {
@@ -186,7 +186,7 @@ The first player to join a room will have to choose the number of dice to play w
 }
 ```
 
-##### CMD_ROLL_DICE
+#### CMD_ROLL_DICE
 Rolls the dice! Works only if the game is in GAME_STATE_READY or GAME_STATE_IN_PROGRESS state.
 ```json
 {

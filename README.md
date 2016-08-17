@@ -159,7 +159,7 @@ Game state has changed. See the list of all game states below.
 ```
 
 #### SV_GAME_DATA_CHANGED
-You will receive this notification everytime game data changes. Current server timestamp will be included along with the data that changed (not necessarily be the full gameData object!). See response example of SV_GAME_STATE for a full list of gameData properties.
+You will receive this notification everytime game data changes. Current server timestamp will be included along with the data that changed (not necessarily be the full gameData object!). See response example of [SV_GAME_STATE](#sv_game_state) for a full list of gameData properties.
 ```json
 {
     "type": "SV_GAME_DATA_CHANGED",

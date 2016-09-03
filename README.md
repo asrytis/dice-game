@@ -38,7 +38,7 @@ cd client/mobile
 npm install && react-native run-ios
 ```
 
-You will need to have at least 2 clients to be able to play. You can [run multiple simulators](http://stackoverflow.com/questions/26446346/xcode6-run-two-instances-of-the-simulator) or download the [tyrus-client-cli](https://repo1.maven.org/maven2/org/glassfish/tyrus/ext/tyrus-client-cli/1.1/tyrus-client-cli-1.1.jar) which I personally used while testing the game. The CLI is very easy to use:
+You will need to have at least 2 clients running to be able to play. You can [run multiple simulators](http://stackoverflow.com/questions/26446346/xcode6-run-two-instances-of-the-simulator) or download the [tyrus-client-cli](https://repo1.maven.org/maven2/org/glassfish/tyrus/ext/tyrus-client-cli/1.1/tyrus-client-cli-1.1.jar) which I personally used while testing the game. The CLI is very easy to use:
 ```
 java -jar tyrus-client-cli-1.1.jar ws://localhost:3000/ws
 ```

@@ -21,14 +21,14 @@
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/chai-spies": "0.0.0",
-    "@types/mocha": "^2.2.33",
+    "@types/mocha": "^2.2.39",
     "@types/node": "0.0.2",
     "@types/node-uuid": "0.0.28",
     "@types/ws": "0.0.37",
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
     "mocha": "^3.0.0",
-    "typescript": "^2.0.10"
+    "typescript": "^2.2.0"
   },
   "dependencies": {
     "node-uuid": "^1.4.7",

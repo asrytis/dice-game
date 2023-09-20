@@ -1,3 +1,4 @@
+modified the file
 # Multiplayer dice game
 
 <img src="https://github.com/asrytis/dice-game/blob/master/docs/images/gameplay.png" align="right">
